@@ -8,9 +8,14 @@ from json.decoder import JSONDecodeError
 
 
 
-username = '1218319361'
-client_id = '25562ed2e5c14bf4931131f19369dc96'
-client_secret = '41a147b3152d47d59489f74a5e5eca38'
+# username = '1218319361'
+# client_id = '25562ed2e5c14bf4931131f19369dc96'
+# client_secret = '41a147b3152d47d59489f74a5e5eca38'
+# redirect_uri='https://google.com'
+
+username='1163796537'
+client_id='cd2e6f4c5d0c4981b8914e574582d28d'
+client_secret='9c6180a30f2b4ca897455989199d0af2'
 redirect_uri='https://google.com'
 
 try:
