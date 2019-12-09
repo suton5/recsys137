@@ -3,6 +3,8 @@ import numpy as np
 from sklearn.mixture import GaussianMixture
 from sklearn.neighbors import NearestNeighbors
 from sklearn.preprocessing import StandardScaler
+from sklearn import metrics
+from tqdm import tqdm
 import sys
 
 def preprocess_numeric(path):
@@ -15,7 +17,12 @@ def preprocess_numeric(path):
     
     return df, np.array(df_numeric), X_scaled
 
-def recommend(song_input, songs_np, songs_df, num_recommend_gmm, num_recommend_nn, gmm_clusters=8):
+def SelBest(arr, N):
+    '''Return the N smallest values.'''
+    idx=np.argsort(arr)[:N]
+    return arr[idx]
+
+def recommend(song_input, songs_np, songs_df, num_recommend_gmm, num_recommend_nn):
     '''Generates song recommendations based on Nearest Neighbours and GMM sampling.
     
     Inputs
@@ -26,7 +33,6 @@ def recommend(song_input, songs_np, songs_df, num_recommend_gmm, num_recommend_n
     
     num_recommend_nn: Number of songs to recommend using NN.
     num_recommend_gmm: Number of songs to recommend using GMM sampling.
-    gmm_clusters: Number of clusters for GMM.
     
     Outputs
     
@@ -41,8 +47,35 @@ def recommend(song_input, songs_np, songs_df, num_recommend_gmm, num_recommend_n
     idx = query_songs_df.drop_duplicates(subset=['track_uri']).index.values
     query_songs_np = songs_np[idx]
     
+    print("Tuning hyperparameters for GMM.")
+    
+    n_clusters=np.arange(2, 20)
+    sils=[]
+    bics=[]
+    iterations=20
+    for n in tqdm(n_clusters):
+        tmp_sil=[]
+        tmp_bic=[]
+        for _ in range(iterations):
+            gmm=GaussianMixture(n, n_init=2).fit(query_songs_np) 
+            labels=gmm.predict(query_songs_np)
+            sil=metrics.silhouette_score(query_songs_np, labels, metric='euclidean')
+            tmp_sil.append(sil)
+            tmp_bic.append(gmm.bic(query_songs_np))
+        val=np.mean(SelBest(np.array(tmp_sil), int(iterations/5)))
+        sils.append(val)
+        val=np.mean(SelBest(np.array(tmp_bic), int(iterations/5)))
+        bics.append(val)
+    gmm_clusters = int((n_clusters[np.argmin(bics)] + n_clusters[np.argmax(sils)])/2)
+    
+    print("Optimal number of clusters: {}.".format(gmm_clusters))
+    
+    print("Fitting models.")
+    
     gmm = GaussianMixture(n_components=gmm_clusters).fit(query_songs_np)
     nn = NearestNeighbors().fit(query_songs_np)
+    
+    print("Generating recommendations.")
     
     #GMM sampling
     label_gmm = gmm.predict(query_song.reshape(1,-1))
@@ -54,7 +87,6 @@ def recommend(song_input, songs_np, songs_df, num_recommend_gmm, num_recommend_n
     dist, indices = nn.kneighbors(query_song.reshape(1,-1), n_neighbors=num_recommend_nn+1)
     nn_recc = indices[:,1:][0]
     
-#     return gmm_recc, nn_recc
     return idx, nn_recc, gmm_recc
 
 df, X_unscaled, X_train = preprocess_numeric(str(sys.argv[1]))
