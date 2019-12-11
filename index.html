@@ -20,6 +20,7 @@
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'
           type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- Custom styles for this template -->
     <link href="css/agency.min.css" rel="stylesheet">
@@ -41,16 +42,31 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#background">Background</a>
+                    <a class="nav-link js-scroll-trigger" href="#problemStatement">Problem</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#milestones">Milestones</a>
+                    <a class="nav-link js-scroll-trigger" href="#introduction">Intro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#data">Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#literature">Literature</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#model">Model</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#results">Results</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#conclusion">Conclusion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#references">References</a>
                 </li>
             </ul>
         </div>
@@ -64,94 +80,393 @@
         <div class="intro-text">
             <div class="intro-lead-in">Jovin Leong, Sujay Thakur, Simon Warchol</div>
             <div class="intro-heading text-uppercase">CS209A Final Project</div>
-            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#background">Background</a>
+            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#problemStatement">Begin</a>
         </div>
     </div>
 </header>
 
-<section class="bg-light page-section" id="background">
+<section class="page-section" id="problemStatement">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-left">
-                <h2 class="section-heading text-uppercase">Background</h2>
-                <span><b>Problem statement</b></span>
-                <p>Music recommenders systems (MRS) have exploded in popularity thanks to music streaming services like
-                    Spotify, Pandora, and Apple Music. More than half of current music consumption is
-                    by way of these services. While recommender systems have been around for some time and are
-                    well researched, music recommender systems differ from their more common siblings in some
-                    characteristically important ways: the duration of the items is less (3-5 minutes for a song vs 90
-                    minutes for a movie or months/years for a book or shopping item), the items are consumed in
-                    sequence with multiple items consumed in a session, repeated recommendations have a different
-                    significance since listening to the same song as part of a different playlist may be ok, and
-                    consumption often occurs passively as background as music. Music Recommender Systems then require
-                    different approaches from traditional recommender systems.</p>
+                <h2 class="section-heading text-uppercase">Problem Statement and Motivation</h2>
+                <p>Based on the project goals set out by the AC209a instructors, we are to create a Spotify recommender
+                    system that can achieve the following two competencies: (1) automatic playlist generation; (2)
+                    deal with the Cold Start problem.
+                </p>
                 <p>
-                    One of the major problems in Music Recommender Systems is the station/playlist generation problem.
-                    At its heart, playlist generation is about finding a set of songs to recommend to best extend
-                    the experience of a listener in the midst of a playlist. By suggesting appropriate songs to add to a
-                    playlist, a Recommender System can increase user engagement by making playlist creation easier,
-                    as well as extending listening beyond the end of the existing playlist.</p>
-                <p>One of Spotify’s primary products is Playlists, collections of tracks that individual users (or
-                    Spotify)
-                    can build for every mood or event. Spotify users can make or follow as many playlists as they
-                    like. With over 50 million tacks available, the company attempts to direct the most relevant songs
-                    to users based on their preferences, and Playlists often comprise the most convenient and effective
-                    way to convey these recommended songs to users.
-                    Spotify participates in the creation and curation of Playlists that are followed by millions of
-                    Spotify users. These Playlists are compiled in a complex manner, involving both human-led and
-                    computer-led processes. What stands is that algorithmically-curated discovery playlists, and their
-                    effectiveness, remain an important business interest for the company. The goal is to better
-                    understand how these algorithms can be evaluated and improved with machine learning techniques
-                    learned in the class.</p>
-                <span><b>Project Goal</b></span>
-                <p>Automatic Playlist Generation — create a model for song discovery on the basis of the
-                    base playlist and user/context information that might be important to the quality of the
-                    playlist. Some of user/context information might include intent, emotion, location, playlist
-                    "purpose" (driving/road trip, studying, etc). Use the developed model(s) for automatic
-                    playlist generation.</p>
+                    To this effect, our team has developed a product that utilizes data science models and approaches to create a
+                    system with the following functionalities: (1) the system is capable of taking in single-song
+                    inputs and generating in-app playlists on Spotify; (2) the system can take in ‘intent’ and/or
+                    ‘mood’ inputs and generate playlists corresponding to said intents without any song input.
+                </p>
                 <p>
-                    Cold Start Problem — A variant of the problem of automatic playlist generation, the cold start
-                    problem involves creating a model to find a good choice of songs for new playlists with relatively
-                    few
-                    prior playlist entries.
+                    Our team believes that such a system would adequately address both project goals and create
+                    the necessary foundation on which more sophisticated recommender systems can be built.
+                    Our project website charts our approach and model design process and will chiefly discuss
+                    our data collection and analysis procedure as well as our how we arrived at our final models.
+                    Subsequently, we evaluate the success and weaknesses of our model before concluding with some
+                    discussion of future possible extensions to our system. All scripts and code referenced in our
+                    website are available in our project notebook and our project repository linked below.
                 </p>
             </div>
         </div>
         <div class="row">
-
         </div>
     </div>
 </section>
 
-<!-- About -->
-<section class="page-section" id="milestones">
+<section class="bg-light page-section" id="introduction">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">Milestones</h2>
-                <h3 class="section-subheading text-muted">Earlier Project Versions</h3>
+            <div class="col-lg-12 text-left">
+                <h2 class="section-heading text-uppercase">Introduction</h2>
+                <span><b>Background</b></span>
+                <p>In early 2018, Reuters reported that based on findings by the IFPI’s Global Music Report, music
+                    streaming has, for the first time, overtaken traditional music sales to become the music industry’s
+                    largest single revenue source.
+                    A vital component of such music streaming services is the use of music recommender systems (MRS)
+                    that encourage exploration, discovery, and even more music consumption.
+                    These MRS face unique constraints and challenges that set it apart from traditional recommender
+                    systems; two objectives that were posed to our team were (1) creating a system of automatic
+                    playlist generation through intent/mood; (2) dealing with the ‘Cold Start’ problem faced by MRS.
+                </p>
+                <br>
+                <span><b>Challenges</b></span>
+                <p>
+                    As such, our team’s primary aim is to address the twin objectives and, in doing so,
+                    develop our own MRS that should integrate seamlessly with the Spotify platform.
+
+                    Our primary challenges involve using the limited data we have to generate sensible
+                    recommendations that are relevant and sufficiently random (in order to maintain an
+                    explorative element). Another challenge is to find a way to relate our data to user
+                    intent/moods and develop metrics to assess the accuracy of our model given the existing data constraints.
+                    An additional challenge is to create an interface and method of communication that is intuitive,
+                    user-friendly, and flexible enough to accommodate a wide range of use cases.
+                    These challenges are more clearly articulated in the subsequent sections where we detail our
+                    Exploratory Data Analysis (EDA) and our baseline model.
+                </p>
             </div>
         </div>
         <div class="row">
-
         </div>
     </div>
 </section>
 
-<!-- Team -->
-<section class="bg-light page-section" id="model">
+<section class="page-section" id="data">
     <div class="container">
-      <h1>Model</h1>
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h2 class="section-heading text-uppercase">Data</h2>
+                <span><b>Data Description</b></span>
+                <p>
+                    The primary dataset that we obtained through the AC209a instructors is the Million Playlist
+                    dataset released by Spotify as part of the 2018 Recsys challenge. Based on our preliminary
+                    examination of the data, we notice that the data does not contain any information on the
+                    structural features of tracks nor any user input beyond the inclusion of songs in certain playlists.
+                    Our knowledge of MRS informed us that there was very little we could do with the base data alone;
+                    we needed a means to tease out user input or feedback (to train our model on) and obtain song
+                    features that could be mapped into certain classifications for our recommender system.
+                </p>
+                <p>
+                    As such, this motivated our data collection efforts that we detail below; we ended up
+                    obtaining two primary datasets for our system:
+                    <ul>
+                        <li>An augmented dataset based on the Million Playlist dataset</li>
+                        <li>Public domain Spotify playlists made by users.</li>
+                    </ul>
+                </p>
+                <br>
+                <span><b>Data Collection</b></span>
+                <p>
+                    The initial dataset contained a set of playlists with the features listed below but little in the
+                    way of information about the tracks themselves beyond their membership in a particular playlist and
+                    the artist and albums they belonged to.
+                </p>
+                    Base data features:
+                    <ul class="dual">
+                        <li>Playlist ID</li>
+                        <li>Position</li>
+                        <li>Artist name</li>
+                        <li>Track URI</li>
+                        <li>Artist URI</li>
+                        <li>Track name</li>
+                        <li>Album URI</li>
+                        <li>Duration (ms)</li>
+                        <li>Album name</li>
+                    </ul>
+                <p>
+                    We wrote a simple Python script that enabled us to extract additional features from Spotify’s API
+                    by feeding in the unique track identification codes and requesting song features. For this, we
+                    relied on Spotipy (a Python package that enabled easy interaction with Spotify’s API) along with
+                    other common Python packages.
+                    Subsequently, we created an augmented dataset that extends our initial set of songs from the
+                    Million Playlist Dataset by including additional features we’ve extracted from the Spotify API.
+                    This was then stored in a SQLite database for easy querying.
+                </p>
+                    Augmented data features:
+                    <ul class="dual">
+                        <li>Danceability</li>
+                        <li>Energy</li>
+                        <li>Key</li>
+                        <li>Loudness</li>
+                        <li>Mode</li>
+                        <li>Speechiness</li>
+                        <li>Acousticness</li>
+                        <li>Instrumentalness</li>
+                        <li>Liveness</li>
+                        <li>Valence</li>
+                        <li>Tempo</li>
+                        <li>Type</li>
+                        <li>Analysis URL</li>
+                        <li>Time signature</li>
+                    </ul>
+                Detailed explanation of these features are available on the Spotify developer page that is referenced below.
+                <p>
+                    For our second set of data, we relied on a separate Python script that scraped existing user-generated
+                    playlists on Spotify and returned TSV files containing Track Titles, Artist Names, Album Titles,
+                    and the relevant id codes. We used this script to scrape playlists that corresponded to each of
+                    the four moods/intents that we sought to model and we ran the collected data through the API once
+                    again to populate our data with Spotify’s audio features. We curated these playlists by
+                    qualitatively considering how well the playlists align to the specific moods, assessing
+                    the number of playlist followers, and ensuring that the tracks were largely released prior
+                    to 2018 (such that the songs from these playlists also feature on our Million Playlist dataset).
+                    The playlists are stored in our data folder within our main repository.
+                </p>
+                Moods/Intents curated:
+                <ul class="dual">
+                    <li>Angry</li>
+                    <li>Sad</li>
+                    <li>Party</li>
+                    <li>Sleep</li>
+                </ul>
+                <br>
+                <span><b>Exploratory Data Analysis</b></span>
+                <p>
+                    Both datasets are similar in the features; the key difference in the second dataset that we scraped
+                    is that the playlists reference specific moods and intents that we curated. We will now discuss our
+                    EDA that we performed on our primary dataset since the process is similar. The following plots are
+                    generated from the 'songs620.csv' file and the code used to generate the plots are in our notebook.
+                </p>
+                <p>
+                    We first plot a scatter matrix to assess for correlation across all of the features that we gathered
+                    from the Spotify API for the ‘songs620.csv’ dataset that we assumed to be representative of the other
+                    CSVs. We viewed this assumption to be fair because of how each dataset contains a large number of observations.
+                </p>
+
+                <div class="figure-img">
+                    <img src="img/Figure_1_Feature_Scatter_Matrix.png" style="width: 100%">
+                    <br>
+                    <b>Figure 1: Scatter Matrix for Spotify's Audio Features (songs620.csv)</b>
+                </div>
+                <br>
+                <p>
+                    From our visual inspection, it seems like features such as energy and loudness seem to exhibit
+                    multicollinearity. We can choose to deal with this by either dropping one of the attributes or
+                    by downscaling one; alternatively, we could perform more rigorous assessments of the features
+                    in order to understand which combination of weights for the features will generate the best
+                    most intuitively sensible recommendations.
+                </p>
+                <br>
+                <p>
+                    Subsequently, we standardized our data and computed the Principal Component Analysis vectors so as
+                    to visualize the component pairs through another scatter matrix. This gave us some insight concerning
+                    the number of clusters we might expect in the data.
+                </p>
+                <br>
+                <div class="figure-img">
+                    <img src="img/Figure_2_PCA_Scatter_Matrix.png" style="width: 100%">
+                    <br>
+                    <br>
+                    <b>Figure 2: Scatter Matrix for PCA Component Vector Pairs (songs620.csv)</b>
+                </div>
+                <br>
+                <p>
+                    From our PCA we observe roughly 3 clusters, and can now fit these using K-means to get some intuition.
+                    We note that the learned cluster centers correspond correctly to the 3 clusters we visually saw in the PCA projections.
+                </p>
+                <div class="figure-img">
+                    <img src="img/Figure_3_First_Two_PCA.png" style="width: 100%">
+                    <br>
+                    <b>Figure 3: Scatter Plot for First Two PCA Component Vectors with K-Means Cluster Centers</b>
+                </div>
+                <br>
+                <p>
+                    This concludes our initial EDA. We note that some of the Spotify features seem to be highly correlated;
+                    we also identify potential clusters that will give us some insight into how we should design our
+                    baseline model. We now consider the relevant literature surrounding recommender systems in order to
+                    develop our baseline model.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+        </div>
     </div>
 </section>
 
 
-<!-- Contact -->
+<section class="bg-light page-section" id="literature">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h2 class="section-heading text-uppercase">Literature Review & Related Work</h2>
+                All references are cited below in our references section.
+                <br>
+
+                <span><b>Model</b></span>
+                <p>
+                </p>
+
+                <span><b>Scoring</b></span>
+                <p>
+                </p>
+
+                <span><b>Spotify API</b></span>
+                <p>
+
+                </p>
+            </div>
+        </div>
+        <div class="row">
+        </div>
+    </div>
+</section>
+
+<section class="page-section" id="model">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h2 class="section-heading text-uppercase">Model</h2>
+                <span><b>Data Description</b></span>
+                <p>
+                </p>
+
+                <span><b>Exploratory Data Analysis</b></span>
+                <p>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+        </div>
+    </div>
+</section>
+
+<section class="bg-light page-section" id="system">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h2 class="section-heading text-uppercase">System</h2>
+                <span><b>Data Description</b></span>
+                <p>
+                </p>
+
+                <span><b>Exploratory Data Analysis</b></span>
+                <p>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+        </div>
+    </div>
+</section>
+
 <section class="page-section" id="results">
     <div class="container">
-      <h1>Results</h1>
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h2 class="section-heading text-uppercase">Results and Analysis</h2>
+                <span><b>Results</b></span>
+                <p>
+                </p>
+
+                <span><b>Analysis</b></span>
+                <p>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+        </div>
     </div>
 </section>
+
+<section class="bg-light page-section" id="conclusion">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h2 class="section-heading text-uppercase">Conclusion</h2>
+                <span><b>Discussion</b></span>
+                <p>
+                </p>
+
+                <span><b>Future Work</b></span>
+                <p>
+                    A key extension we hope to implement for our recommender system is to incorporate a graphic
+                    interface such that our system is more aesthetically appealing and more intuitive for casual users.
+                    We want users to be confident in our recommendations and we believe that a strong aesthetic can
+                    help to build that confidence. To that extent, we have developed a sample user interface for our existing 4 moods.
+                </p>
+                <br>
+                <div class="figure-img">
+                    <img src="img/intent.jpg" style="width: 60%">
+                    <br>
+                    <br>
+                    <b>Figure 4: Possible graphical interface</b>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+        </div>
+    </div>
+</section>
+
+<section class="page-section" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h2 class="section-heading text-uppercase">About</h2>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-sm">
+                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh" src="img/jovin.jpg" alt="Image" style="width: 50%">
+                        <div class="legend text-center pos-abs" style="margin-top: 30px"><h4>Simon Warchol</h4></div>
+                    </div>
+                    <div class="col-sm">
+                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh" src="img/jovin.jpg" alt="Image" style="width: 50%">
+                        <div class="legend text-center pos-abs" style="margin-top: 30px"><h4>Sujay Thakur</h4></div>
+                    </div>
+                    <div class="col-sm">
+                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh" src="img/jovin.jpg" alt="Image" style="width: 50%">
+                        <div class="legend text-center pos-abs" style="margin-top: 30px"><h4>Jovin Leong</h4></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</section>
+
+
+<section class="bg-light page-section" id="references">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-left">
+                <h2 class="section-heading text-uppercase">References</h2>
+                <ul>
+                    <li>Berenzweig, Adam, Beth Logan, Daniel P.W. Ellis and Brian Whitman. A Large-Scale Evaluation of Acoustic and Subjective Music Similarity Measures. Proceedings of the ISMIR International Conference on Music Information Retrieval (Baltimore, MD), 2003, pp.99-105.</li>
+                    <li>Malaeb, Maher. Recall and Precision at k for Recommender Systems (2017). https://medium.com/@m_n_malaeb/recall-and-precision-at-k-for-recommender-systems-618483226c54</li>
+                    <li>Reuters, Music streaming overtakes physical sales for the first time -industry body (2018). https://www.reuters.com/article/music-sales/music-streaming-overtakes-physical-sales-for-the-first-time-industry-body-idUSL8N1S143H</li>
+                    <li>Shedl, M. et al, Current Challenges and Visions in Music Recommender Systems Research, http: //arxiv.org/pdf/1710.03208.pdf </li>
+                    <li>Shedl, M. Peter Knees, and Fabien Gouyon, New Paths in Music Recommender Systems, RecSys’17 tutorial, http://www.cp.jku.at/tutorials/mrs_recsys_2017/slides.pdf </li>
+                    <li>Spotify. Web API Reference (2019). https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-several-audio-features!</li>
+                    <li>Special thanks to Marcus Heijer and the AC209a Team</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+        </div>
+    </div>
 
 <!-- Footer -->
 <footer class="footer">
