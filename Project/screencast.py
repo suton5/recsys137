@@ -104,6 +104,7 @@ print("Loaded neural network model from disk")
 df, X_unscaled, X_train = preprocess_numeric(str(sys.argv[1]))
 sample_recc_songs, nn_recc_songs = recommend_mood(str(mood), model, X_train, df, 10, 10)
 
+
 # Sample
 print('\nSample-based Recommendations\n')
 print(sample_recc_songs[['track_name', 'artist_name']])
@@ -125,14 +126,14 @@ except (AttributeError, JSONDecodeError):
 spotify = spotipy.Spotify(auth=token)
 
 
-new_playlist = spotify.user_playlist_create(username, 'Sample-based Recommendations', public=True)
+new_playlist = spotify.user_playlist_create(username, 'Sample-based Recommendations: ' + mood, public=True)
 
 for i in range(sample_recc_songs.shape[0]):
 	id_x = sample_recc_songs['track_uri'].values[i]
 	id_x = [id_x]
 	results = spotify.user_playlist_add_tracks(username, new_playlist['id'], id_x)
 
-new_playlist = spotify.user_playlist_create(username, 'NN-based Recommendations', public=True)
+new_playlist = spotify.user_playlist_create(username, 'NN-based Recommendations: ' + mood, public=True)
 
 for i in range(nn_recc_songs.shape[0]):
 	id_x = nn_recc_songs['track_uri'].values[i]
