@@ -126,7 +126,8 @@
             <div class="col-lg-12 text-left">
                 <h2 class="section-heading text-uppercase">Introduction</h2>
                 <span><b>Background</b></span>
-                <p>In early 2018, Reuters reported that based on findings by the IFPI’s Global Music Report, <a href="https://www.reuters.com/article/music-sales/music-streaming-overtakes-physical-sales-for-the-first-time-industry-body-idUSL8N1S143H">music
+                <p>In early 2018, Reuters reported that based on findings by the IFPI’s Global Music Report, <a
+                        href="https://www.reuters.com/article/music-sales/music-streaming-overtakes-physical-sales-for-the-first-time-industry-body-idUSL8N1S143H">music
                     streaming has, for the first time, overtaken traditional music sales to become the music industry’s
                     largest single revenue source</a>.
                     A vital component of such music streaming services is the use of music recommender systems (MRS)
@@ -226,7 +227,9 @@
                     <li>Analysis URL</li>
                     <li>Time signature</li>
                 </ul>
-                Detailed explanation of these features are available on the <a href="https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-several-audio-features!">Spotify developer page</a>.
+                Detailed explanation of these features are available on the <a
+                    href="https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-several-audio-features!">Spotify
+                developer page</a>.
                 <p>
                     For our second set of data, we relied on a separate Python script that scraped existing
                     user-generated
@@ -276,7 +279,8 @@
                 </p>
                 <br>
                 <p>
-                    Subsequently, we standardized our data and computed the Principal Component Analysis (PCA) vectors so as
+                    Subsequently, we standardized our data and computed the Principal Component Analysis (PCA) vectors
+                    so as
                     to visualize the component pairs through another scatter matrix. This gave us some insight
                     concerning
                     the number of clusters we might expect in the data.
@@ -383,13 +387,226 @@
         <div class="row">
             <div class="col-lg-12 text-left">
                 <h2 class="section-heading text-uppercase">Model</h2>
-                <span><b>Data Description</b></span>
                 <p>
                 </p>
+                <div>
+                    <div class="text_cell_render border-box-sizing rendered_html">
+                        <h1 id="Baseline-model:-Cold-Start-Problem">Baseline model: Cold Start Problem<a
+                                class="anchor-link" href="#Baseline-model:-Cold-Start-Problem"></a></h1>
+                        <p>The Cold Start problem refers to the issue where a system cannot draw any inferences for
+                            users or items about which it has not yet gathered sufficient information.</p>
+                        <p>In the context of our project, the issue concerns how we can create a model that is able to
+                            make sound song recommendations for new playlists with relatively few prior user inputs.
+                            This would involve the user essentially feeding in perhaps 3 or so songs that they like.</p>
+                        <p>In our case, we have designed our baseline model to take in a single song input in order to
+                            generate a playlist of recommended songs solely based on the inputted song. Note that when a
+                            user indicates that they like a song, we only focus on the set of playlists that the song is
+                            a part of. We can then generate recommendations using techniques like:</p>
+                        <ul>
+                            <li>Gaussian Mixture Models (GMM)</li>
+                            <li>Nearest Neighbours (NN)</li>
+                        </ul>
+                        <h3 id="Gaussian-Mixture-Models-(GMM)">Gaussian Mixture Models (GMM)<a class="anchor-link"
+                                                                                               href="#Gaussian-Mixture-Models-(GMM)"></a>
+                        </h3>
+                        <p>We can fit the data to the chosen number of clusters we expect. Then, when the user likes a
+                            song, we can infer the posterior <span class="MathJax_Preview"
+                                                                   style="color: inherit;"></span><span class="MathJax"
+                                                                                                        id="MathJax-Element-1-Frame"
+                                                                                                        tabindex="0"
+                                                                                                        data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>p</mi><mo stretchy=&quot;false&quot;>(</mo><msub><mi>z</mi><mi>n</mi></msub><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo stretchy=&quot;false&quot;>|</mo></mrow><msub><mi>x</mi><mi>n</mi></msub><mo stretchy=&quot;false&quot;>)</mo></math>"
+                                                                                                        role="presentation"
+                                                                                                        style="position: relative;"><nobr
+                                    aria-hidden="true"><span class="math" id="MathJax-Span-1"
+                                                             style="width: 4.11em; display: inline-block;"><span
+                                    style="display: inline-block; position: relative; width: 3.396em; height: 0px; font-size: 120%;"><span
+                                    style="position: absolute; clip: rect(1.67em, 1003.34em, 2.92em, -999.997em); top: -2.557em; left: 0em;"><span
+                                    class="mrow" id="MathJax-Span-2"><span class="mi" id="MathJax-Span-3"
+                                                                           style="font-family: STIXGeneral-Italic;">𝑝</span><span
+                                    class="mo" id="MathJax-Span-4"
+                                    style="font-family: STIXGeneral-Regular;">(</span><span class="msubsup"
+                                                                                            id="MathJax-Span-5"><span
+                                    style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span
+                                    style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span
+                                    class="mi" id="MathJax-Span-6"
+                                    style="font-family: STIXGeneral-Italic;">𝑧</span><span
+                                    style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span
+                                    style="position: absolute; top: -3.807em; left: 0.479em;"><span class="mi"
+                                                                                                    id="MathJax-Span-7"
+                                                                                                    style="font-size: 70.7%; font-family: STIXGeneral-Italic;">𝑛</span><span
+                                    style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span
+                                    class="texatom" id="MathJax-Span-8"><span class="mrow" id="MathJax-Span-9"><span
+                                    class="mo" id="MathJax-Span-10"
+                                    style="font-family: STIXVariants;">|</span></span></span><span class="msubsup"
+                                                                                                   id="MathJax-Span-11"><span
+                                    style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span
+                                    style="position: absolute; clip: rect(3.396em, 1000.54em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span
+                                    class="mi" id="MathJax-Span-12"
+                                    style="font-family: STIXGeneral-Italic;">𝑥</span><span
+                                    style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span
+                                    style="position: absolute; top: -3.807em; left: 0.539em;"><span class="mi"
+                                                                                                    id="MathJax-Span-13"
+                                                                                                    style="font-size: 70.7%; font-family: STIXGeneral-Italic;">𝑛</span><span
+                                    style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span
+                                    class="mo" id="MathJax-Span-14"
+                                    style="font-family: STIXGeneral-Regular;">)</span></span><span
+                                    style="display: inline-block; width: 0px; height: 2.562em;"></span></span></span><span
+                                    style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 1.218em;"></span></span></nobr><span
+                                    class="MJX_Assistive_MathML" role="presentation"><math
+                                    xmlns="http://www.w3.org/1998/Math/MathML"><mi>p</mi><mo stretchy="false">(</mo><msub><mi>z</mi><mi>n</mi></msub><mrow
+                                    class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><msub><mi>x</mi><mi>n</mi></msub><mo
+                                    stretchy="false">)</mo></math></span></span>
+                            <script type="math/tex" id="MathJax-Element-1">p(z_n|x_n)</script>
+                            to select the cluster that the song belongs to. We can then sample <span
+                                    class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax"
+                                                                                                 id="MathJax-Element-2-Frame"
+                                                                                                 tabindex="0"
+                                                                                                 data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>p</mi><mo stretchy=&quot;false&quot;>(</mo><msub><mi>x</mi><mi>n</mi></msub><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo stretchy=&quot;false&quot;>|</mo></mrow><msub><mi>z</mi><mi>n</mi></msub><mo stretchy=&quot;false&quot;>)</mo></math>"
+                                                                                                 role="presentation"
+                                                                                                 style="position: relative;"><nobr
+                                    aria-hidden="true"><span class="math" id="MathJax-Span-15"
+                                                             style="width: 4.11em; display: inline-block;"><span
+                                    style="display: inline-block; position: relative; width: 3.396em; height: 0px; font-size: 120%;"><span
+                                    style="position: absolute; clip: rect(1.67em, 1003.34em, 2.92em, -999.997em); top: -2.557em; left: 0em;"><span
+                                    class="mrow" id="MathJax-Span-16"><span class="mi" id="MathJax-Span-17"
+                                                                            style="font-family: STIXGeneral-Italic;">𝑝</span><span
+                                    class="mo" id="MathJax-Span-18"
+                                    style="font-family: STIXGeneral-Regular;">(</span><span class="msubsup"
+                                                                                            id="MathJax-Span-19"><span
+                                    style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span
+                                    style="position: absolute; clip: rect(3.396em, 1000.54em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span
+                                    class="mi" id="MathJax-Span-20"
+                                    style="font-family: STIXGeneral-Italic;">𝑥</span><span
+                                    style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span
+                                    style="position: absolute; top: -3.807em; left: 0.539em;"><span class="mi"
+                                                                                                    id="MathJax-Span-21"
+                                                                                                    style="font-size: 70.7%; font-family: STIXGeneral-Italic;">𝑛</span><span
+                                    style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span
+                                    class="texatom" id="MathJax-Span-22"><span class="mrow" id="MathJax-Span-23"><span
+                                    class="mo" id="MathJax-Span-24"
+                                    style="font-family: STIXVariants;">|</span></span></span><span class="msubsup"
+                                                                                                   id="MathJax-Span-25"><span
+                                    style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span
+                                    style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span
+                                    class="mi" id="MathJax-Span-26"
+                                    style="font-family: STIXGeneral-Italic;">𝑧</span><span
+                                    style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span
+                                    style="position: absolute; top: -3.807em; left: 0.479em;"><span class="mi"
+                                                                                                    id="MathJax-Span-27"
+                                                                                                    style="font-size: 70.7%; font-family: STIXGeneral-Italic;">𝑛</span><span
+                                    style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span
+                                    class="mo" id="MathJax-Span-28"
+                                    style="font-family: STIXGeneral-Regular;">)</span></span><span
+                                    style="display: inline-block; width: 0px; height: 2.562em;"></span></span></span><span
+                                    style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 1.218em;"></span></span></nobr><span
+                                    class="MJX_Assistive_MathML" role="presentation"><math
+                                    xmlns="http://www.w3.org/1998/Math/MathML"><mi>p</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mi>n</mi></msub><mrow
+                                    class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><msub><mi>z</mi><mi>n</mi></msub><mo
+                                    stretchy="false">)</mo></math></span></span>
+                            <script type="math/tex" id="MathJax-Element-2">p(x_n|z_n)</script>
+                            to generate a new song from that cluster. Since this sample from a multivariate Gaussian may
+                            not exactly correspond to a song, we can use our pre-trained NN to find the closest match.
+                            This method requires us to select the number of clusters we expect in the data. We can
+                            select this using a combination of the Silhouette score and Bayesian Information Criterion.
+                            We demonstrate these on a subset of the data below.
+                        </p>
 
-                <span><b>Exploratory Data Analysis</b></span>
-                <p>
-                </p>
+                    </div>
+                    <div class="text_cell_render rendered_html" tabindex="-1"><h3 id="Nearest-Neighbours-(NN)">Nearest
+                        Neighbours (NN)<a class="anchor-link" href="#Nearest-Neighbours-(NN)"></a></h3>
+                        <p>We can simply run unsupervised NN on the data and recommend the <span class="MathJax_Preview"
+                                                                                                 style="color: inherit;"></span><span
+                                class="MathJax" id="MathJax-Element-7-Frame" tabindex="0"
+                                data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>k</mi></math>"
+                                role="presentation" style="position: relative;"><nobr aria-hidden="true"><span
+                                class="math" id="MathJax-Span-59" style="width: 0.658em; display: inline-block;"><span
+                                style="display: inline-block; position: relative; width: 0.539em; height: 0px; font-size: 120%;"><span
+                                style="position: absolute; clip: rect(1.491em, 1000.54em, 2.503em, -999.997em); top: -2.318em; left: 0em;"><span
+                                class="mrow" id="MathJax-Span-60"><span class="mi" id="MathJax-Span-61"
+                                                                        style="font-family: STIXMathJax_Normal-italic;">𝑘</span></span><span
+                                style="display: inline-block; width: 0px; height: 2.324em;"></span></span></span><span
+                                style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.932em;"></span></span></nobr><span
+                                class="MJX_Assistive_MathML" role="presentation"><math
+                                xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi></math></span></span>
+                            <script type="math/tex" id="MathJax-Element-7">k</script>
+                            closest songs corresponding to the song that the user likes.
+                        </p>
+                        <p>Note that we would expect NN to generate recommendations closer to the song input, since it
+                            is literally picking songs with features that are closest to the input, whereas GMM would
+                            recommend songs in the same cluster but potentially far away from the input. Our system
+                            could use both techniques together, with NN suggesting relevant similar songs and GMM
+                            suggesting relevant 'exploratory' songs for the user to better explore that cluster and
+                            discover relevant albeit different music.</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 text-left">
+                            <div>
+                                <p>We’ve addressed the cold start in our “reccomend_coldstart” function, which can be
+                                    viewed in
+                                    further
+                                    detail in our notebook. This function takes in the spotifyId of a song and the
+                                    relevant data and
+                                    returns indices corresponding to playlists in the dataset that contain the query,
+                                    recommendations
+                                    song from our GNN model, and recommendations from our Neural Net model.
+
+                                    Consider the results on a sample song (“Plain Jane by A$AP Ferg -- id 11997 in our
+                                    DB)
+                                </p>
+
+                                <p><b>Emperically, the results out or NN model are more varied and, overall, better than
+                                    the GNN
+                                    model.</b></p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4>Automatic Playlist Generation</h4>
+                            <div class="cell border-box-sizing text_cell rendered">
+                                <div class="prompt input_prompt">
+                                </div>
+                                <div class="inner_cell">
+                                    <div class="text_cell_render border-box-sizing rendered_html">
+
+                                        <p>This corresponds to creating a model for song discovery on the basis of the
+                                            base
+                                            playlists and user-specified context information. The current system is able
+                                            to take
+                                            in the moods of</p>
+                                        <ul>
+                                            <li>Sleep</li>
+                                            <li>Party</li>
+                                            <li>Angry</li>
+                                            <li>Sad</li>
+                                        </ul>
+                                        <p>We have two methods to tackle this:</p>
+                                        <ul>
+                                            <li>Obtaining sample tracks corresponding to moods</li>
+                                            <li>Using a neural network to learn the mapping from song features to
+                                                moods
+                                            </li>
+                                        </ul>
+                                        <p><strong>Sample Tracks</strong></p>
+                                        <p>This works by first accessing additional playlists that we have scraped
+                                            corresponding
+                                            to these moods. Random songs are then sampled from these playlists (which
+                                            correspond
+                                            to the relevant moods) and fed through our models from the previous section,
+                                            generating relevant recommendations that cater to the required mood.</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span><b>Data Description</b></span>
+                        <p>
+                        </p>
+
+                        <span><b>Exploratory Data Analysis</b></span>
+                        <p>
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="row">
@@ -398,457 +615,6 @@
 </section>
 
 <section class="bg-light page-section" id="system">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-left">
-                <h2 class="section-heading text-uppercase">System</h2>
-                <div>
-                    <h4>Cold Start Problem</h4>
-                    <p>We’ve addressed the cold start in our “reccomend_coldstart” function, which can be viewed in
-                        further
-                        detail in our notebook. This function takes in the spotifyId of a song and the relevant data and
-                        returns indices corresponding to playlists in the dataset that contain the query,
-                        recommendations
-                        song from our GNN model, and recommendations from our Neural Net model.
-
-                        Consider the results on a sample song (“Plain Jane by A$AP Ferg -- id 11997 in our DB)
-                    </p>
-                    <div class="cell border-box-sizing code_cell rendered">
-                        <div class="input">
-                            <div class="prompt input_prompt">In[14]:</div>
-                            <div class="inner_cell">
-                                <div class="input_area">
-                                    <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span
-                                            class="o">.</span><span class="n">loc</span><span class="p">[[</span><span
-                                            class="mi">11997</span><span class="p">]]</span>
-</pre>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="output_wrapper">
-                            <div class="output">
-
-
-                                <div class="output_area">
-
-                                    <div class="prompt output_prompt">Out[14]:</div>
-
-
-                                    <div class="output_html rendered_html output_subarea output_execute_result">
-                                        <div>
-                                            <style scoped="">
-                                                .dataframe tbody tr th:only-of-type {
-                                                    vertical-align: middle;
-                                                }
-
-                                                .dataframe tbody tr th {
-                                                    vertical-align: top;
-                                                }
-
-                                                .dataframe thead th {
-                                                    text-align: right;
-                                                }
-                                            </style>
-                                            <table border="1" class="dataframe">
-                                                <thead>
-                                                <tr style="text-align: right;">
-                                                    <th></th>
-                                                    <th>Unnamed: 0</th>
-                                                    <th>pid</th>
-                                                    <th>pos</th>
-                                                    <th>artist_name</th>
-                                                    <th>track_uri</th>
-                                                    <th>artist_uri</th>
-                                                    <th>track_name</th>
-                                                    <th>album_uri</th>
-                                                    <th>duration_ms</th>
-                                                    <th>album_name</th>
-                                                    <th>...</th>
-                                                    <th>instrumentalness</th>
-                                                    <th>liveness</th>
-                                                    <th>valence</th>
-                                                    <th>tempo</th>
-                                                    <th>type</th>
-                                                    <th>id</th>
-                                                    <th>uri</th>
-                                                    <th>track_href</th>
-                                                    <th>analysis_url</th>
-                                                    <th>time_signature</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <th>11997</th>
-                                                    <td>11997</td>
-                                                    <td>185</td>
-                                                    <td>59</td>
-                                                    <td>A$AP Ferg</td>
-                                                    <td>spotify:track:4dVpf9jZjcORqGTLUaeYj9</td>
-                                                    <td>spotify:artist:5dHt1vcEm9qb8fCyLcB3HL</td>
-                                                    <td>Plain Jane</td>
-                                                    <td>spotify:album:0tQ7Iu6EicQTPyhYRNWjaT</td>
-                                                    <td>173600</td>
-                                                    <td>Still Striving</td>
-                                                    <td>...</td>
-                                                    <td>0.0</td>
-                                                    <td>0.087</td>
-                                                    <td>0.52</td>
-                                                    <td>170.142</td>
-                                                    <td>audio_features</td>
-                                                    <td>4dVpf9jZjcORqGTLUaeYj9</td>
-                                                    <td>spotify:track:4dVpf9jZjcORqGTLUaeYj9</td>
-                                                    <td>https://api.spotify.com/v1/tracks/4dVpf9jZjcOR...</td>
-                                                    <td>https://api.spotify.com/v1/audio-analysis/4dVp...</td>
-                                                    <td>4</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <p>1 rows × 27 columns</p>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="cell border-box-sizing code_cell rendered">
-                        <div class="input">
-                            <div class="prompt input_prompt">In&nbsp;[15]:</div>
-                            <div class="inner_cell">
-                                <div class="input_area">
-                                    <div class=" highlight hl-ipython3"><pre><span></span><span
-                                            class="n">idx</span><span
-                                            class="p">,</span> <span class="n">nn_recc</span><span
-                                            class="p">,</span> <span
-                                            class="n">gmm_recc</span> <span class="o">=</span> <span class="n">recommend_coldstart</span><span
-                                            class="p">(</span><span class="mi">11997</span><span
-                                            class="p">,</span> <span
-                                            class="n">X_train</span><span class="p">,</span> <span
-                                            class="n">df</span><span
-                                            class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span
-                                            class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span
-                                            class="p">)</span>
-</pre>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="output_wrapper">
-                            <div class="output">
-
-
-                                <div class="output_area">
-
-                                    <div class="prompt"></div>
-
-
-                                    <div class="output_subarea output_stream output_stdout output_text">
-<pre>Fitting models.
-Generating recommendations.
-</pre>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="cell border-box-sizing text_cell rendered">
-                        <div class="prompt input_prompt">
-                        </div>
-                        <div class="inner_cell">
-                            <div class="text_cell_render border-box-sizing rendered_html">
-                                <p>Inspecting the recommendations from both methods below, we see that this is in
-                                    general, a
-                                    good baseline model.</p>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cell border-box-sizing code_cell rendered">
-                        <div class="input">
-                            <div class="prompt input_prompt">In&nbsp;[16]:</div>
-                            <div class="inner_cell">
-                                <div class="input_area">
-                                    <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># GMM</span>
-<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span
-                                                class="n">idx</span><span class="p">]</span><span
-                                                class="o">.</span><span
-                                                class="n">iloc</span><span class="p">[</span><span
-                                                class="n">gmm_recc</span><span
-                                                class="p">][[</span><span class="s1">'track_name'</span><span
-                                                class="p">,</span> <span class="s1">'artist_name'</span><span
-                                                class="p">]]</span>
-</pre>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="output_wrapper">
-                            <div class="output">
-
-
-                                <div class="output_area">
-
-                                    <div class="prompt output_prompt">Out[16]:</div>
-
-
-                                    <div class="output_html rendered_html output_subarea output_execute_result">
-                                        <div>
-                                            <style scoped="">
-                                                .dataframe tbody tr th:only-of-type {
-                                                    vertical-align: middle;
-                                                }
-
-                                                .dataframe tbody tr th {
-                                                    vertical-align: top;
-                                                }
-
-                                                .dataframe thead th {
-                                                    text-align: right;
-                                                }
-                                            </style>
-                                            <table border="1" class="dataframe">
-                                                <thead>
-                                                <tr style="text-align: right;">
-                                                    <th></th>
-                                                    <th>track_name</th>
-                                                    <th>artist_name</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <th>49879</th>
-                                                    <td>POWER</td>
-                                                    <td>Kanye West</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>49879</th>
-                                                    <td>POWER</td>
-                                                    <td>Kanye West</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>11950</th>
-                                                    <td>way back</td>
-                                                    <td>Travis Scott</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>12008</th>
-                                                    <td>Champions</td>
-                                                    <td>Kanye West</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>11950</th>
-                                                    <td>way back</td>
-                                                    <td>Travis Scott</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>11950</th>
-                                                    <td>way back</td>
-                                                    <td>Travis Scott</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>49879</th>
-                                                    <td>POWER</td>
-                                                    <td>Kanye West</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>11945</th>
-                                                    <td>I Don't Get Tired (#IDGT) [feat. August Alsina]</td>
-                                                    <td>Kevin Gates</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>11950</th>
-                                                    <td>way back</td>
-                                                    <td>Travis Scott</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>49871</th>
-                                                    <td>All The Way Up</td>
-                                                    <td>Fat Joe</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="cell border-box-sizing code_cell rendered">
-                        <div class="input">
-                            <div class="prompt input_prompt">In&nbsp;[17]:</div>
-                            <div class="inner_cell">
-                                <div class="input_area">
-                                    <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># NN</span>
-<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span
-                                                class="n">idx</span><span class="p">]</span><span
-                                                class="o">.</span><span
-                                                class="n">iloc</span><span class="p">[</span><span
-                                                class="n">nn_recc</span><span class="p">][[</span><span class="s1">'track_name'</span><span
-                                                class="p">,</span> <span class="s1">'artist_name'</span><span
-                                                class="p">]]</span>
-</pre>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="output_wrapper">
-                            <div class="output">
-
-
-                                <div class="output_area">
-
-                                    <div class="prompt output_prompt">Out[17]:</div>
-
-
-                                    <div class="output_html rendered_html output_subarea output_execute_result">
-                                        <div>
-                                            <style scoped="">
-                                                .dataframe tbody tr th:only-of-type {
-                                                    vertical-align: middle;
-                                                }
-
-                                                .dataframe tbody tr th {
-                                                    vertical-align: top;
-                                                }
-
-                                                .dataframe thead th {
-                                                    text-align: right;
-                                                }
-                                            </style>
-                                            <table border="1" class="dataframe">
-                                                <thead>
-                                                <tr style="text-align: right;">
-                                                    <th></th>
-                                                    <th>track_name</th>
-                                                    <th>artist_name</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <th>9471</th>
-                                                    <td>XO TOUR Llif3</td>
-                                                    <td>Lil Uzi Vert</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>19277</th>
-                                                    <td>Patty Cake</td>
-                                                    <td>Kodak Black</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>19348</th>
-                                                    <td>Undefeated (feat. 21 Savage)</td>
-                                                    <td>A Boogie Wit da Hoodie</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>11974</th>
-                                                    <td>Seven Million (feat. Future)</td>
-                                                    <td>Lil Uzi Vert</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>49866</th>
-                                                    <td>Yamborghini High</td>
-                                                    <td>A$AP Mob</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>19252</th>
-                                                    <td>Icy Lil Bitch</td>
-                                                    <td>Gucci Mane</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>19258</th>
-                                                    <td>Dance (A$$)</td>
-                                                    <td>Big Sean</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>49891</th>
-                                                    <td>What Do You Do</td>
-                                                    <td>A$AP Ferg</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>9440</th>
-                                                    <td>Look At Me Now</td>
-                                                    <td>Chris Brown</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>19200</th>
-                                                    <td>Starboy</td>
-                                                    <td>The Weeknd</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <p><b>Emperically, the results out or NN model are more varied and, overall, better than the GNN
-                        model.</b></p>
-                </div>
-            </div>
-            <div>
-                <h4>Automatic Playlist Generation</h4>
-                <div class="cell border-box-sizing text_cell rendered">
-                    <div class="prompt input_prompt">
-                    </div>
-                    <div class="inner_cell">
-                        <div class="text_cell_render border-box-sizing rendered_html">
-
-                            <p>This corresponds to creating a model for song discovery on the basis of the base
-                                playlists and user-specified context information. The current system is able to take
-                                in the moods of</p>
-                            <ul>
-                                <li>Sleep</li>
-                                <li>Party</li>
-                                <li>Angry</li>
-                                <li>Sad</li>
-                            </ul>
-                            <p>We have two methods to tackle this:</p>
-                            <ul>
-                                <li>Obtaining sample tracks corresponding to moods</li>
-                                <li>Using a neural network to learn the mapping from song features to moods</li>
-                            </ul>
-                            <p><strong>Sample Tracks</strong></p>
-                            <p>This works by first accessing additional playlists that we have scraped corresponding
-                                to these moods. Random songs are then sampled from these playlists (which correspond
-                                to the relevant moods) and fed through our models from the previous section,
-                                generating relevant recommendations that cater to the required mood.</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <span><b>Data Description</b></span>
-            <p>
-            </p>
-
-            <span><b>Exploratory Data Analysis</b></span>
-            <p>
-            </p>
-        </div>
-    </div>
-    <div class="row">
-    </div>
-    </div>
 </section>
 
 <section class="page-section" id="results">
