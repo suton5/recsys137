@@ -95,7 +95,8 @@
                     deal with the Cold Start problem.
                 </p>
                 <p>
-                    To this effect, our team has developed a product that utilizes data science models and approaches to create a
+                    To this effect, our team has developed a product that utilizes data science models and approaches to
+                    create a
                     system with the following functionalities: (1) the system is capable of taking in single-song
                     inputs and generating in-app playlists on Spotify; (2) the system can take in ‘intent’ and/or
                     ‘mood’ inputs and generate playlists corresponding to said intents without any song input.
@@ -140,7 +141,8 @@
                     Our primary challenges involve using the limited data we have to generate sensible
                     recommendations that are relevant and sufficiently random (in order to maintain an
                     explorative element). Another challenge is to find a way to relate our data to user
-                    intent/moods and develop metrics to assess the accuracy of our model given the existing data constraints.
+                    intent/moods and develop metrics to assess the accuracy of our model given the existing data
+                    constraints.
                     An additional challenge is to create an interface and method of communication that is intuitive,
                     user-friendly, and flexible enough to accommodate a wide range of use cases.
                     These challenges are more clearly articulated in the subsequent sections where we detail our
@@ -171,10 +173,10 @@
                 <p>
                     As such, this motivated our data collection efforts that we detail below; we ended up
                     obtaining two primary datasets for our system:
-                    <ul>
-                        <li>An augmented dataset based on the Million Playlist dataset</li>
-                        <li>Public domain Spotify playlists made by users.</li>
-                    </ul>
+                <ul>
+                    <li>An augmented dataset based on the Million Playlist dataset</li>
+                    <li>Public domain Spotify playlists made by users.</li>
+                </ul>
                 </p>
                 <br>
                 <span><b>Data Collection</b></span>
@@ -183,18 +185,18 @@
                     way of information about the tracks themselves beyond their membership in a particular playlist and
                     the artist and albums they belonged to.
                 </p>
-                    Base data features:
-                    <ul class="dual">
-                        <li>Playlist ID</li>
-                        <li>Position</li>
-                        <li>Artist name</li>
-                        <li>Track URI</li>
-                        <li>Artist URI</li>
-                        <li>Track name</li>
-                        <li>Album URI</li>
-                        <li>Duration (ms)</li>
-                        <li>Album name</li>
-                    </ul>
+                Base data features:
+                <ul class="dual">
+                    <li>Playlist ID</li>
+                    <li>Position</li>
+                    <li>Artist name</li>
+                    <li>Track URI</li>
+                    <li>Artist URI</li>
+                    <li>Track name</li>
+                    <li>Album URI</li>
+                    <li>Duration (ms)</li>
+                    <li>Album name</li>
+                </ul>
                 <p>
                     We wrote a simple Python script that enabled us to extract additional features from Spotify’s API
                     by feeding in the unique track identification codes and requesting song features. For this, we
@@ -204,26 +206,28 @@
                     Million Playlist Dataset by including additional features we’ve extracted from the Spotify API.
                     This was then stored in a SQLite database for easy querying.
                 </p>
-                    Augmented data features:
-                    <ul class="dual">
-                        <li>Danceability</li>
-                        <li>Energy</li>
-                        <li>Key</li>
-                        <li>Loudness</li>
-                        <li>Mode</li>
-                        <li>Speechiness</li>
-                        <li>Acousticness</li>
-                        <li>Instrumentalness</li>
-                        <li>Liveness</li>
-                        <li>Valence</li>
-                        <li>Tempo</li>
-                        <li>Type</li>
-                        <li>Analysis URL</li>
-                        <li>Time signature</li>
-                    </ul>
-                Detailed explanation of these features are available on the Spotify developer page that is referenced below.
+                Augmented data features:
+                <ul class="dual">
+                    <li>Danceability</li>
+                    <li>Energy</li>
+                    <li>Key</li>
+                    <li>Loudness</li>
+                    <li>Mode</li>
+                    <li>Speechiness</li>
+                    <li>Acousticness</li>
+                    <li>Instrumentalness</li>
+                    <li>Liveness</li>
+                    <li>Valence</li>
+                    <li>Tempo</li>
+                    <li>Type</li>
+                    <li>Analysis URL</li>
+                    <li>Time signature</li>
+                </ul>
+                Detailed explanation of these features are available on the Spotify developer page that is referenced
+                below.
                 <p>
-                    For our second set of data, we relied on a separate Python script that scraped existing user-generated
+                    For our second set of data, we relied on a separate Python script that scraped existing
+                    user-generated
                     playlists on Spotify and returned TSV files containing Track Titles, Artist Names, Album Titles,
                     and the relevant id codes. We used this script to scrape playlists that corresponded to each of
                     the four moods/intents that we sought to model and we ran the collected data through the API once
@@ -250,8 +254,10 @@
                 </p>
                 <p>
                     We first plot a scatter matrix to assess for correlation across all of the features that we gathered
-                    from the Spotify API for the ‘songs620.csv’ dataset that we assumed to be representative of the other
-                    CSVs. We viewed this assumption to be fair because of how each dataset contains a large number of observations.
+                    from the Spotify API for the ‘songs620.csv’ dataset that we assumed to be representative of the
+                    other
+                    CSVs. We viewed this assumption to be fair because of how each dataset contains a large number of
+                    observations.
                 </p>
 
                 <div class="figure-img">
@@ -270,7 +276,8 @@
                 <br>
                 <p>
                     Subsequently, we standardized our data and computed the Principal Component Analysis vectors so as
-                    to visualize the component pairs through another scatter matrix. This gave us some insight concerning
+                    to visualize the component pairs through another scatter matrix. This gave us some insight
+                    concerning
                     the number of clusters we might expect in the data.
                 </p>
                 <br>
@@ -282,8 +289,10 @@
                 </div>
                 <br>
                 <p>
-                    From our PCA we observe roughly 3 clusters, and can now fit these using K-means to get some intuition.
-                    We note that the learned cluster centers correspond correctly to the 3 clusters we visually saw in the PCA projections.
+                    From our PCA we observe roughly 3 clusters, and can now fit these using K-means to get some
+                    intuition.
+                    We note that the learned cluster centers correspond correctly to the 3 clusters we visually saw in
+                    the PCA projections.
                 </p>
                 <div class="figure-img">
                     <img src="img/Figure_3_First_Two_PCA.png" style="width: 100%">
@@ -292,7 +301,8 @@
                 </div>
                 <br>
                 <p>
-                    This concludes our initial EDA. We note that some of the Spotify features seem to be highly correlated;
+                    This concludes our initial EDA. We note that some of the Spotify features seem to be highly
+                    correlated;
                     we also identify potential clusters that will give us some insight into how we should design our
                     baseline model. We now consider the relevant literature surrounding recommender systems in order to
                     develop our baseline model.
@@ -313,6 +323,26 @@
                 All references are cited below in our references section.
                 <br>
 
+                <p>
+                    Given out lack of experience with recommender models, we cast a particularly wide net in the
+                    early stages of our project and implemented a number of distinct models. For instance, after
+                    reading A Novel Hybrid Music Recommendation System using K-Means Clustering and PLSA by Gurpreet
+                    Singh and Rajdavinder Singh Boparai, we
+                    implemented K Means clustering as part of our EDA. The model implemented on Singh & Boparai
+                    is based strictly on what songs users play, and as we explored the Spotify API and found that
+                    we could extract a number metrics beyond just playlist content (e.g. tempo, danceability) for every
+                    song,
+                    and thus decided to look elsewhere. Moreover, when the K means clustering model was compared to the
+                    gaussian mixture model we also implemented,
+                    we found k means clustering provided a less rigorous probabilistic framework than the GMM. This
+                    GMM was implemented, in part, based on the findings of Rui Chen, Qingyi Hua, Quanli Gao, and Ying
+                    Xing, in "A Hybrid Recommender System for Gaussian Mixture Model
+                    and Enhanced Social Matrix Factorization Technology Based on
+                    Multiple Interests",
+                    though, as with the previous article, this system was based strictly on preferences
+                    and was not as low-level as our ideal model.
+
+                </p>
                 <span><b>Model</b></span>
                 <p>
                 </p>
@@ -403,7 +433,8 @@
                     A key extension we hope to implement for our recommender system is to incorporate a graphic
                     interface such that our system is more aesthetically appealing and more intuitive for casual users.
                     We want users to be confident in our recommendations and we believe that a strong aesthetic can
-                    help to build that confidence. To that extent, we have developed a sample user interface for our existing 4 moods.
+                    help to build that confidence. To that extent, we have developed a sample user interface for our
+                    existing 4 moods.
                 </p>
                 <br>
                 <div class="figure-img">
@@ -430,20 +461,23 @@
 
                 <div class="row">
                     <div class="col-sm">
-                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh" src="img/jovin.jpg" alt="Image" style="width: 50%">
+                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh"
+                             src="img/jovin.jpg" alt="Image" style="width: 50%">
                         <div class="legend text-center pos-abs" style="margin-top: 30px"><h4>Simon Warchol</h4></div>
                     </div>
                     <div class="col-sm">
-                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh" src="img/jovin.jpg" alt="Image" style="width: 50%">
+                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh"
+                             src="img/jovin2.jpg" alt="Image" style="width: 50%">
                         <div class="legend text-center pos-abs" style="margin-top: 30px"><h4>Sujay Thakur</h4></div>
                     </div>
                     <div class="col-sm">
-                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh" src="img/jovin.jpg" alt="Image" style="width: 50%">
+                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh"
+                             src="img/jovin3.jpg" alt="Image" style="width: 50%">
                         <div class="legend text-center pos-abs" style="margin-top: 30px"><h4>Jovin Leong</h4></div>
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     </div>
 </section>
 
@@ -454,12 +488,33 @@
             <div class="col-lg-12 text-left">
                 <h2 class="section-heading text-uppercase">References</h2>
                 <ul>
-                    <li>Berenzweig, Adam, Beth Logan, Daniel P.W. Ellis and Brian Whitman. A Large-Scale Evaluation of Acoustic and Subjective Music Similarity Measures. Proceedings of the ISMIR International Conference on Music Information Retrieval (Baltimore, MD), 2003, pp.99-105.</li>
-                    <li>Malaeb, Maher. Recall and Precision at k for Recommender Systems (2017). https://medium.com/@m_n_malaeb/recall-and-precision-at-k-for-recommender-systems-618483226c54</li>
-                    <li>Reuters, Music streaming overtakes physical sales for the first time -industry body (2018). https://www.reuters.com/article/music-sales/music-streaming-overtakes-physical-sales-for-the-first-time-industry-body-idUSL8N1S143H</li>
-                    <li>Shedl, M. et al, Current Challenges and Visions in Music Recommender Systems Research, http: //arxiv.org/pdf/1710.03208.pdf </li>
-                    <li>Shedl, M. Peter Knees, and Fabien Gouyon, New Paths in Music Recommender Systems, RecSys’17 tutorial, http://www.cp.jku.at/tutorials/mrs_recsys_2017/slides.pdf </li>
-                    <li>Spotify. Web API Reference (2019). https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-several-audio-features!</li>
+                    <li>Valdiviezo-Diaz, Priscila, et al. "A Collaborative Filtering Approach Based on Naïve Bayes
+                        Classifier." IEEE Access 7 (2019):
+                        108581-108592.http://downloads.hindawi.com/journals/mpe/2018/9109647.pdf
+                    </li>
+                    <li>Singh, Gurpreet Southgate and Rajdavinder Singh Boparai. “A Novel Hybrid Music Recommendation
+                        System using K-Means Clustering and PLSA.” (2016).
+                        https://pdfs.semanticscholar.org/4836/84fa68ba8d1df41dae2523901297b77421ef.pdf
+                    </li>
+                    <li>Berenzweig, Adam, Beth Logan, Daniel P.W. Ellis and Brian Whitman. A Large-Scale Evaluation of
+                        Acoustic and Subjective Music Similarity Measures. Proceedings of the ISMIR International
+                        Conference on Music Information Retrieval (Baltimore, MD), 2003, pp.99-105.
+                    </li>
+                    <li>Malaeb, Maher. Recall and Precision at k for Recommender Systems (2017).
+                        https://medium.com/@m_n_malaeb/recall-and-precision-at-k-for-recommender-systems-618483226c54
+                    </li>
+                    <li>Reuters, Music streaming overtakes physical sales for the first time -industry body (2018).
+                        https://www.reuters.com/article/music-sales/music-streaming-overtakes-physical-sales-for-the-first-time-industry-body-idUSL8N1S143H
+                    </li>
+                    <li>Shedl, M. et al, Current Challenges and Visions in Music Recommender Systems Research, http:
+                        //arxiv.org/pdf/1710.03208.pdf
+                    </li>
+                    <li>Shedl, M. Peter Knees, and Fabien Gouyon, New Paths in Music Recommender Systems, RecSys’17
+                        tutorial, http://www.cp.jku.at/tutorials/mrs_recsys_2017/slides.pdf
+                    </li>
+                    <li>Spotify. Web API Reference (2019).
+                        https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-several-audio-features!
+                    </li>
                     <li>Special thanks to Marcus Heijer and the AC209a Team</li>
                 </ul>
             </div>
@@ -468,28 +523,28 @@
         </div>
     </div>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-4">
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
 
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/jqBootstrapValidation.js"></script>
 
-<!-- Custom scripts for this template -->
-<script src="js/agency.min.js"></script>
+    <!-- Custom scripts for this template -->
+    <script src="js/agency.min.js"></script>
 
 </body>
 
