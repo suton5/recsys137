@@ -26,13 +26,15 @@ def preprocess_numeric(path):
     
     return df, np.array(df_numeric), X_scaled
 
-df, X_unscaled, X_train = preprocess_numeric('../test_data/songs620.csv')
+df, X_unscaled, X_train = preprocess_numeric('../../songs_mod/songs100.csv')
+
 
 # Scatter matrix 1
 cor_columns = ['danceability','energy','loudness','speechiness','acousticness','instrumentalness',\
         'liveness','valence','tempo']
 scatter_matrix(df[cor_columns], figsize=(40, 40), c="#1ED761")
 plt.suptitle("Scatter matrix for all track feature attributes obtained from the Spotify API")
+plt.yticks(rotation='horizontal')
 plt.show()
 
 # PCA
@@ -45,6 +47,7 @@ for i in range(9):
     for j in range(9):
         ax[i,j].scatter(pca_X_train[:,i], pca_X_train[:,j], alpha=0.1, c="#1ED761")
 
+plt.yticks(rotation='horizontal')
 plt.tight_layout()
 plt.show()
 
