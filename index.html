@@ -3,6 +3,7 @@
 
 <head>
 
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -24,6 +25,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/agency.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -320,8 +322,10 @@
         <div class="row">
             <div class="col-lg-12 text-left">
                 <h2 class="section-heading text-uppercase">Literature Review & Related Work</h2>
-                All references are cited below in our references section.
+                All references are cited below in our <a class="js-scroll-trigger" href="#references">References</a>
+                section.
                 <br>
+                <span><b>Model</b></span>
 
                 <p>
                     Given out lack of experience with recommender models, we cast a particularly wide net in the
@@ -342,17 +346,28 @@
                     though, as with the previous article, this system was based strictly on preferences
                     and was not as low-level as our ideal model.
 
+                    Our use of track features in our model is informed by Berenzweig et al.’s 2003 discussion of
+                    acoustic features and their limitations. These insights influenced how we fed these values into
+                    our nearest-neighbours model
+
+
                 </p>
-                <span><b>Model</b></span>
-                <p>
-                </p>
+
 
                 <span><b>Scoring</b></span>
                 <p>
+                    Our metric used to assess our model’s performance is guided by the concepts discussed in Maeleb’s
+                    Medium article Recall and Precision at k for Recommender Systems. We considered a similar method
+                    of evaluating our recommendation accuracy.
                 </p>
 
                 <span><b>Spotify API</b></span>
                 <p>
+
+                    Our code that interacts with Spotify’s API references the documentation and sample code provided by
+                    the Spotify Developer documentation page.
+                    Additionally, we referenced Casey Chu’s public domain code that used the Spotipy package.
+
 
                 </p>
             </div>
@@ -439,9 +454,12 @@
                     gone beyond what was expected of us in order to create a product that we are all proud of.
                 </p>
                 <p>
-                    Although our priorities have definitely shifted in order to meld better with our resources, we made the
-                    most of what we had and managed to produce a considerable amount of output. We learnt a lot throughout
-                    the course of the project and had the opportunity to apply a lot of what we were taught in AC209a; we also
+                    Although our priorities have definitely shifted in order to meld better with our resources, we made
+                    the
+                    most of what we had and managed to produce a considerable amount of output. We learnt a lot
+                    throughout
+                    the course of the project and had the opportunity to apply a lot of what we were taught in AC209a;
+                    we also
                     managed to extend our project and incorporate models and approaches beyond our course syllabus.
                 </p>
             </div>
@@ -554,29 +572,30 @@
         <div class="row">
         </div>
     </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-4">
-                </div>
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-4">
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <script src="js/jqBootstrapValidation.js"></script>
+<script src="js/jqBootstrapValidation.js"></script>
 
-    <!-- Custom scripts for this template -->
-    <script src="js/agency.min.js"></script>
+<!-- Custom scripts for this template -->
+<script src="js/agency.min.js"></script>
 
 </body>
 
