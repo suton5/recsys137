@@ -96,11 +96,13 @@ def recommend_mood(mood_input, nn_model, songs_np, songs_df, num_recommend_sampl
     
     return sample_recc_songs, nn_recc_songs
 
+mood = input("Select a mood:\nangry\nparty\nsad\nsleep\n\n")
+
 model = tf.keras.models.load_model('model.h5')
 print("Loaded neural network model from disk")
 
 df, X_unscaled, X_train = preprocess_numeric(str(sys.argv[1]))
-sample_recc_songs, nn_recc_songs = recommend_mood(str(sys.argv[2]), model, X_train, df, 10, 10)
+sample_recc_songs, nn_recc_songs = recommend_mood(str(mood), model, X_train, df, 10, 10)
 
 # Sample
 print('\nSample-based Recommendations\n')
