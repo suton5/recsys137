@@ -991,21 +991,18 @@
 
                                 </div>
                             </div>
-                            <div class="inner_cell">
-                                <div class="input_area">
-                                    <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample_recc_songs</span><span
-                                            class="p">,</span> <span class="n">nn_recc_songs</span> <span
-                                            class="o">=</span> <span class="n">recommend_mood</span><span
-                                            class="p">(</span><span class="s1">'angry'</span><span
-                                            class="p">,</span> <span class="n">model</span><span
-                                            class="p">,</span> <span class="n">X_train</span><span
-                                            class="p">,</span> <span class="n">df</span><span class="p">,</span> <span
-                                            class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span
-                                            class="p">)</span>
+                            <div class="input_area">
+                                <div class=" highlight hl-ipython3"><pre><span></span><span
+                                        class="n">sample_recc_songs</span><span class="p">,</span> <span class="n">nn_recc_songs</span> <span
+                                        class="o">=</span> <span class="n">recommend_mood</span><span class="p">(</span><span
+                                        class="s1">'party'</span><span class="p">,</span> <span
+                                        class="n">model</span><span class="p">,</span> <span
+                                        class="n">X_train</span><span class="p">,</span> <span class="n">df</span><span
+                                        class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span
+                                        class="mi">10</span><span class="p">)</span>
 </pre>
-                                    </div>
-
                                 </div>
+
                             </div>
                             <div class="inner_cell">
                                 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1014,13 +1011,7 @@
 
                                 </div>
                             </div>
-                            <div class="inner_cell">
-                                <div class="text_cell_render border-box-sizing rendered_html">
-                                    <p>Inspecting the recommendations from both methods below, we see that this is in
-                                        general, a good model.</p>
 
-                                </div>
-                            </div>
 
                             <div class="inner_cell">
                                 <div class="input_area">
@@ -1043,137 +1034,185 @@
 
                                 </div>
                             </div>
-                            <div class="output_html rendered_html output_subarea output_execute_result">
-                                <div>
-                                    <style scoped="">
-                                        .dataframe tbody tr th:only-of-type {
-                                            vertical-align: middle;
-                                        }
+                        </div>
+                        <div class="output_subarea output_stream output_stdout output_text">
+<pre>Sample-based method
+</pre>
+                        </div>
+                        <div class="output_html rendered_html output_subarea ">
+                            <div>
+                                <style scoped="">
+                                    .dataframe tbody tr th:only-of-type {
+                                        vertical-align: middle;
+                                    }
 
-                                        .dataframe tbody tr th {
-                                            vertical-align: top;
-                                        }
+                                    .dataframe tbody tr th {
+                                        vertical-align: top;
+                                    }
 
-                                        .dataframe thead th {
-                                            text-align: right;
-                                        }
-                                    </style>
-                                    <table border="1" class="dataframe">
-                                        <thead>
-                                        <tr style="text-align: right;">
-                                            <th></th>
-                                            <th>track_name</th>
-                                            <th>artist_name</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th>1447</th>
-                                            <td>When You Walk Into The Room</td>
-                                            <td>Bryan &amp; Katie Torwalt</td>
-                                        </tr>
-                                        <tr>
-                                            <th>7675</th>
-                                            <td>In Charlotte</td>
-                                            <td>Young Dolph</td>
-                                        </tr>
-                                        <tr>
-                                            <th>6353</th>
-                                            <td>Get Free</td>
-                                            <td>The Vines</td>
-                                        </tr>
-                                        <tr>
-                                            <th>59783</th>
-                                            <td>All Weekend Long</td>
-                                            <td>The Lacs</td>
-                                        </tr>
-                                        <tr>
-                                            <th>27540</th>
-                                            <td>Time For That</td>
-                                            <td>Kevin Gates</td>
-                                        </tr>
-                                        <tr>
-                                            <th>5314</th>
-                                            <td>Hey Girl</td>
-                                            <td>Billy Currington</td>
-                                        </tr>
-                                        <tr>
-                                            <th>13776</th>
-                                            <td>Play</td>
-                                            <td>David Banner</td>
-                                        </tr>
-                                        <tr>
-                                            <th>59359</th>
-                                            <td>California I Follow</td>
-                                            <td>Corsica Arts Club</td>
-                                        </tr>
-                                        <tr>
-                                            <th>42735</th>
-                                            <td>Re-Do</td>
-                                            <td>Modern Baseball</td>
-                                        </tr>
-                                        <tr>
-                                            <th>11665</th>
-                                            <td>Pop, Lock, And Drop It</td>
-                                            <td>Swishahouse</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    .dataframe thead th {
+                                        text-align: right;
+                                    }
+                                </style>
+                                <table border="1" class="dataframe">
+                                    <thead>
+                                    <tr style="text-align: right;">
+                                        <th></th>
+                                        <th>track_name</th>
+                                        <th>artist_name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>42109</td>
+                                        <td>Really Really</td>
+                                        <td>Kevin Gates</td>
+                                    </tr>
+                                    <tr>
+                                        <td>32196</td>
+                                        <td>Till I Die</td>
+                                        <td>Machine Gun Kelly</td>
+                                    </tr>
+                                    <tr>
+                                        <td>57380</td>
+                                        <td>Crown Royal</td>
+                                        <td>Rittz</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2925</td>
+                                        <td>Into You</td>
+                                        <td>Ariana Grande</td>
+                                    </tr>
+                                    <tr>
+                                        <td>32223</td>
+                                        <td>Half Naked &amp; Almost Famous</td>
+                                        <td>Machine Gun Kelly</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2873</td>
+                                        <td>Bad (feat. Tiara Thomas)</td>
+                                        <td>Wale</td>
+                                    </tr>
+                                    <tr>
+                                        <td>40452</td>
+                                        <td>Some Nights</td>
+                                        <td>fun.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>50500</td>
+                                        <td>Far Alone</td>
+                                        <td>G-Eazy</td>
+                                    </tr>
+                                    <tr>
+                                        <td>32207</td>
+                                        <td>Make It Happen</td>
+                                        <td>Machine Gun Kelly</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20315</td>
+                                        <td>2 Heads</td>
+                                        <td>Coleman Hell</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+                        <div class="output_subarea output_stream output_stdout output_text">
+<pre>Neural network-based Recomendations
+</pre>
+                        </div>
+                        <div class="output_html rendered_html output_subarea ">
+                            <div>
+                                <style scoped="">
+                                    .dataframe tbody tr th:only-of-type {
+                                        vertical-align: middle;
+                                    }
+
+                                    .dataframe tbody tr th {
+                                        vertical-align: top;
+                                    }
+
+                                    .dataframe thead th {
+                                        text-align: right;
+                                    }
+                                </style>
+                                <table border="1" class="dataframe">
+                                    <thead>
+                                    <tr style="text-align: right;">
+                                        <th></th>
+                                        <th>track_name</th>
+                                        <th>artist_name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>2097</td>
+                                        <td>Culo Remix</td>
+                                        <td>Ivy Queen</td>
+                                    </tr>
+                                    <tr>
+                                        <td>32514</td>
+                                        <td>Last to Know</td>
+                                        <td>Three Days Grace</td>
+                                    </tr>
+                                    <tr>
+                                        <td>51099</td>
+                                        <td>The Right Thing</td>
+                                        <td>Kolohe Kai</td>
+                                    </tr>
+                                    <tr>
+                                        <td>51712</td>
+                                        <td>Get Low - feat. Nicki Minaj, Tyga &amp; Flo Rida</td>
+                                        <td>Waka Flocka Flame</td>
+                                    </tr>
+                                    <tr>
+                                        <td>45991</td>
+                                        <td>Look out Yonder (with Alison Krauss &amp; Dan Tymi...</td>
+                                        <td>Randy Rogers Band</td>
+                                    </tr>
+                                    <tr>
+                                        <td>34856</td>
+                                        <td>En La Lenta</td>
+                                        <td>Cosculluela</td>
+                                    </tr>
+                                    <tr>
+                                        <td>17354</td>
+                                        <td>Pretty Brown Eyes</td>
+                                        <td>Cody Simpson</td>
+                                    </tr>
+                                    <tr>
+                                        <td>64981</td>
+                                        <td>Viejos Tiempos</td>
+                                        <td>Bryant Myers</td>
+                                    </tr>
+                                    <tr>
+                                        <td>44617</td>
+                                        <td>About You</td>
+                                        <td>Trey Songz</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3683</td>
+                                        <td>Cherry Lips (Go Baby Go)</td>
+                                        <td>Garbage</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <p>Inspecting the recommendations from both methods below, we see that this is in general, a
+                            good model.
+
+                        </p>
 
 
                     </div>
                 </div>
                 <div>
-                    <h4>Automatic Playlist Generation</h4>
-                    <div class="cell border-box-sizing text_cell rendered">
-                        <div class="prompt input_prompt">
-                        </div>
-                        <div class="inner_cell">
-                            <div class="text_cell_render border-box-sizing rendered_html">
-
-                                <p>This corresponds to creating a model for song discovery on the basis of the
-                                    base
-                                    playlists and user-specified context information. The current system is able
-                                    to take
-                                    in the moods of</p>
-                                <ul>
-                                    <li>Sleep</li>
-                                    <li>Party</li>
-                                    <li>Angry</li>
-                                    <li>Sad</li>
-                                </ul>
-                                <p>We have two methods to tackle this:</p>
-                                <ul>
-                                    <li>Obtaining sample tracks corresponding to moods</li>
-                                    <li>Using a neural network to learn the mapping from song features to
-                                        moods
-                                    </li>
-                                </ul>
-                                <p><strong>Sample Tracks</strong></p>
-                                <p>This works by first accessing additional playlists that we have scraped
-                                    corresponding
-                                    to these moods. Random songs are then sampled from these playlists (which
-                                    correspond
-                                    to the relevant moods) and fed through our models from the previous section,
-                                    generating relevant recommendations that cater to the required mood.</p>
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <p>
-                </p>
             </div>
         </div>
-
     </div>
-
-    <div class="row">
-    </div>
+        
 </section>
 
 <section class="bg-light page-section" id="demos">
@@ -1260,7 +1299,7 @@
 
                 <span><b>Results</b></span>
                 <p>
-                    Our neural network for our model attempting to automatically generate playlists based on 
+                    Our neural network for our model attempting to automatically generate playlists based on
                     mood/intent has the following test and train performance.
                 </p>
 
@@ -1363,17 +1402,21 @@
                     <div class="col-sm">
                         <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh aboot"
                              src="img/jovin.jpg" alt="Image" style="width: 50%">
-                        <div class="legend text-center pos-abs aboot" style="margin-top: 30px"><h4><a href="https://www.linkedin.com/in/jovin-leong-85111767/">Jovin Leong</a></h4></div>
+                        <div class="legend text-center pos-abs aboot" style="margin-top: 30px"><h4><a
+                                href="https://www.linkedin.com/in/jovin-leong-85111767/">Jovin Leong</a></h4></div>
                     </div>
                     <div class="col-sm">
                         <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh"
                              src="img/sujay.jpg" alt="Image" style="width: 50%">
-                        <div class="legend text-center pos-abs aboot" style="margin-top: 30px;"><h4><a href="https://www.linkedin.com/in/sujay-thakur-835877168/?originalSubdomain=sg">Sujay Thakur</a></h4></div>
+                        <div class="legend text-center pos-abs aboot" style="margin-top: 30px;"><h4><a
+                                href="https://www.linkedin.com/in/sujay-thakur-835877168/?originalSubdomain=sg">Sujay
+                            Thakur</a></h4></div>
                     </div>
                     <div class="col-sm">
                         <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh aboot"
                              src="img/simon.jpg" alt="Image" style="width: 50%">
-                        <div class="legend text-center pos-abs aboot" style="margin-top: 30px"><h4><a href="https://www.linkedin.com/in/simon-warchol-40966465/">Simon Warchol</a></h4></div>
+                        <div class="legend text-center pos-abs aboot" style="margin-top: 30px"><h4><a
+                                href="https://www.linkedin.com/in/simon-warchol-40966465/">Simon Warchol</a></h4></div>
                     </div>
                 </div>
             </div>
