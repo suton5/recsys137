@@ -1,3 +1,13 @@
+iframe {
+    /*margin-left: 25%;*/
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/*.demo {*/
+/*    text-align: center;*/
+/*}*/
+
 .dual {
     columns: 2;
     -webkit-columns: 2;
@@ -19,6 +29,10 @@ p {
     align-self: center;
     alignment: center;
 }
+
+/*.aboot:hover {*/
+/*    */
+/*}*/
 
 .img-avatar-alpha {
     position: relative;
@@ -104,6 +118,10 @@ p {
     .img-frame-normal .legend.pos-abs {
         position: relative;
     }
+}
+
+.aboot:hover {
+    color: #1ed761;
 }
 
 .img-frame-outline {

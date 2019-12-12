@@ -180,6 +180,7 @@
                     we needed a means to tease out user input or feedback (to train our model on) and obtain song
                     features that could be mapped into certain classifications for our recommender system.
                 </p>
+                <br>
                 <p>
                     As such, this motivated our data collection efforts that we detail below; we ended up
                     obtaining two primary datasets for our system:
@@ -195,7 +196,7 @@
                     way of information about the tracks themselves beyond their membership in a particular playlist and
                     the artist and albums they belonged to.
                 </p>
-
+                <br>
                 <p>Base data features:</p>
                 <ul class="dual">
                     <li>Playlist ID</li>
@@ -218,6 +219,7 @@
                     Million Playlist Dataset by including additional features we’ve extracted from the Spotify API.
                     This was then stored in a SQLite database for easy querying.
                 </p>
+                <br>
                 <p>Augmented data features:</p>
                 <ul class="dual">
                     <li>Danceability</li>
@@ -240,6 +242,7 @@
                         href="https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-several-audio-features!">
                     Spotify developer page</a>.
                 </p>
+                <br>
                 <p>
                     For our second set of data, we relied on a separate Python script that scraped existing
                     user-generated
@@ -267,6 +270,7 @@
                     EDA that we performed on our primary dataset since the process is similar. The following plots are
                     generated from the 'songs620.csv' file and the code used to generate the plots are in our notebook.
                 </p>
+                <br>
                 <p>
                     We first plot a scatter matrix to assess for correlation across all of the features that we gathered
                     from the Spotify API for the ‘songs620.csv’ dataset that we assumed to be representative of the
@@ -1181,7 +1185,7 @@
         <br>
         <div class="row">
             <div class="col">
-                <h4>Cold Start Demo</h4>
+                <h4 class="demo">Cold Start Demo</h4>
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/hkNDOpb304M" frameborder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
@@ -1203,7 +1207,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <h4>Emotion-Based Playlist Generation</h4>
+                <h4 class="demo">Emotion-Based Playlist Generation Demo</h4>
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/QyNhE-wmJmw" frameborder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
@@ -1256,7 +1260,23 @@
 
                 <span><b>Results</b></span>
                 <p>
-                    TODO; WE NEED MORE FOR ANALYSIS AS WELL BASED ON OUR RESULTS
+                    Our neural network for our model attempting to automatically generate playlists based on 
+                    mood/intent has the following test and train performance.
+                </p>
+
+                <div class="figure-img">
+                    <img src="img/Fig_4_results.png" style="width: 100%">
+                    <br>
+                    <b>Figure 4: Train and test results for Automatic Playlist Generation Neural Network</b>
+                </div>
+                <p>
+                    The training accuracy is approximately 0.9837 while the test accuracy is approximately
+                    .0.8528. Based on these scores, the neural network learns the mapping from the feature
+                    space to mood/intent sufficiently well.
+                </p>
+                <p>
+                    Additionally, based on trials with multiple users, our recommender system is capable of
+                    generating accurate song recommendations across a variety of genres fairly consistently.
                 </p>
                 <br>
                 <span><b>Analysis and Evaluation</b></span>
@@ -1304,7 +1324,7 @@
                     <img src="img/intent.jpg" style="width: 60%">
                     <br>
                     <br>
-                    <b>Figure 4: Possible graphical interface</b>
+                    <b>Figure 5: Possible graphical interface</b>
                 </div>
                 <br>
                 <p>
@@ -1326,10 +1346,7 @@
                     would then pick which of the recommendations they want to keep and the system would reparameterize
                     based on the user’s choices.
                 </p>
-
             </div>
-        </div>
-        <div class="row">
         </div>
     </div>
 </section>
@@ -1344,19 +1361,19 @@
 
                 <div class="row">
                     <div class="col-sm">
-                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh"
+                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh aboot"
                              src="img/jovin.jpg" alt="Image" style="width: 50%">
-                        <div class="legend text-center pos-abs" style="margin-top: 30px"><h4>Jovin Leong</h4></div>
+                        <div class="legend text-center pos-abs aboot" style="margin-top: 30px"><h4><a href="https://www.linkedin.com/in/jovin-leong-85111767/">Jovin Leong</a></h4></div>
                     </div>
                     <div class="col-sm">
                         <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh"
                              src="img/sujay.jpg" alt="Image" style="width: 50%">
-                        <div class="legend text-center pos-abs" style="margin-top: 30px"><h4>Sujay Thakur</h4></div>
+                        <div class="legend text-center pos-abs aboot" style="margin-top: 30px;"><h4><a href="https://www.linkedin.com/in/sujay-thakur-835877168/?originalSubdomain=sg">Sujay Thakur</a></h4></div>
                     </div>
                     <div class="col-sm">
-                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh"
+                        <img class="img-avatar-alpha img images text-center img-1 shadow figure-img center-vh aboot"
                              src="img/simon.jpg" alt="Image" style="width: 50%">
-                        <div class="legend text-center pos-abs" style="margin-top: 30px"><h4>Simon Warchol</h4></div>
+                        <div class="legend text-center pos-abs aboot" style="margin-top: 30px"><h4><a href="https://www.linkedin.com/in/simon-warchol-40966465/">Simon Warchol</a></h4></div>
                     </div>
                 </div>
             </div>
