@@ -14,7 +14,7 @@ iframe {
     -moz-columns: 2;
 }
 
-p, ul, h2, b {
+p, ul, h2, ol, b {
     font-size: 16px;
 }
 
@@ -589,8 +589,9 @@ img.MathJax_strut {
     src: url('about:blank')
 }
 
+
 .MathJax .noError {
-    vertical-align: ;
+    /*vertical-align: ;*/
     font-size: 90%;
     text-align: left;
     color: black;
