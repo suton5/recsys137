@@ -1,3 +1,13 @@
+iframe {
+    /*margin-left: 25%;*/
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/*.demo {*/
+/*    text-align: center;*/
+/*}*/
+
 .dual {
     columns: 2;
     -webkit-columns: 2;
