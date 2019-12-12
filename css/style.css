@@ -110,6 +110,10 @@ p{
     }
 }
 
+.aboot:hover {
+    color: #1ed761;
+}
+
 .img-frame-outline {
     position: relative;
 }
