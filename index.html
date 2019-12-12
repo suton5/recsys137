@@ -109,7 +109,7 @@
                     inputs and generating in-app playlists on Spotify; (2) the system can take in ‘intent’ and/or
                     ‘mood’ inputs and generate playlists corresponding to said intents without any song input.
                 </p>
-                 <br>
+                <br>
                 <p>
                     Our team believes that such a system would adequately address both project goals and create
                     the necessary foundation on which more sophisticated recommender systems can be built.
@@ -291,9 +291,8 @@
                 <p>
                     Subsequently, we standardized our data and computed the Principal Component Analysis (PCA) vectors
                     so as
-                    to visualize the component pairs through another scatter matrix. This gave us some insight
-                    concerning
-                    the number of clusters we might expect in the data.
+                    to visualize the component pairs through another scatter matrix. This would give some intuition for
+                    the types of methods we could potentially use for recommendations using these features
                 </p>
                 <br>
                 <div class="figure-img">
@@ -304,10 +303,10 @@
                 </div>
                 <br>
                 <p>
-                    From our PCA we observe roughly 3 clusters, and can now fit these using K-means to get some
-                    intuition.
-                    We note that the learned cluster centers correspond correctly to the 3 clusters we visually saw in
-                    the PCA projections.
+                    We see the existence of some clustering in the projected feature space. Intuitively, we might think
+                    of these groupings of songs to correspond to 'genres'. We see roughly 3 clusters, and can now fit
+                    these using K-means to get some intuition. We note that the learned cluster centers correspond
+                    correctly to the 3 clusters we visually saw in the PCA projections.
                 </p>
                 <div class="figure-img">
                     <img src="img/Figure_3_First_Two_PCA.png" style="width: 100%">
@@ -316,7 +315,9 @@
                 </div>
                 <br>
                 <p>
-                    This concludes our initial EDA. We note that some of the Spotify features seem to be highly
+                    This concludes our initial EDA. This EDA seems to suggest that some methods that exploit the
+                    clustering of these songs in the feature space could be a viable recommender option. We note that
+                    some of the Spotify features seem to be highly
                     correlated;
                     we also identify potential clusters that will give us some insight into how we should design our
                     baseline model. We now consider the relevant literature surrounding recommender systems in order to
@@ -383,6 +384,36 @@
 
                 </p>
             </div>
+            <div class="cell">
+                <div class="prompt input_prompt">
+                </div>
+                <div class="inner_cell">
+                    <div class="text_cell_render border-box-sizing rendered_html">
+                        <h3 id="Nearest-Neighbours-(NN)">Nearest Neighbours (NN)<a class="anchor-link"
+                                                                                   href="#Nearest-Neighbours-(NN)">¶</a>
+                        </h3>
+                        <p>We can simply run unsupervised NN on the data and recommend the <span class="MathJax_Preview"
+                                                                                                 style="color: inherit;"></span><span
+                                class="MathJax" id="MathJax-Element-11-Frame" tabindex="0"
+                                data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>k</mi></math>"
+                                role="presentation" style="position: relative;"><nobr aria-hidden="true"><span
+                                class="math" id="MathJax-Span-106" style="width: 0.658em; display: inline-block;"><span
+                                style="display: inline-block; position: relative; width: 0.539em; height: 0px; font-size: 120%;"><span
+                                style="position: absolute; clip: rect(1.729em, 1000.54em, 2.741em, -999.997em); top: -2.557em; left: 0em;"><span
+                                class="mrow" id="MathJax-Span-107"><span class="mi" id="MathJax-Span-108"
+                                                                         style="font-family: STIXGeneral-Italic;">𝑘</span></span><span
+                                style="display: inline-block; width: 0px; height: 2.562em;"></span></span></span><span
+                                style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.932em;"></span></span></nobr><span
+                                class="MJX_Assistive_MathML" role="presentation"><math
+                                xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi></math></span></span>
+                            <script type="math/tex" id="MathJax-Element-11">k</script>
+                            closest songs corresponding to the song that the user likes, with the hopes that similarity
+                            in feature space would result in good song recommendations.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
         </div>
@@ -397,230 +428,755 @@
                 <p>
                 </p>
                 <div>
+
                     <div class="text_cell_render border-box-sizing rendered_html">
                         <h1 id="Baseline-model:-Cold-Start-Problem">Baseline model: Cold Start Problem<a
-                                class="anchor-link" href="#Baseline-model:-Cold-Start-Problem"></a></h1>
-                        <p>The Cold Start problem refers to the issue where a system cannot draw any inferences for
-                            users or items about which it has not yet gathered sufficient information.</p>
-                        <p>In the context of our project, the issue concerns how we can create a model that is able to
-                            make sound song recommendations for new playlists with relatively few prior user inputs.
-                            This would involve the user essentially feeding in perhaps 3 or so songs that they like.</p>
-                        <p>In our case, we have designed our baseline model to take in a single song input in order to
-                            generate a playlist of recommended songs solely based on the inputted song. Note that when a
-                            user indicates that they like a song, we only focus on the set of playlists that the song is
-                            a part of. We can then generate recommendations using techniques like:</p>
+                                class="anchor-link" href="#Baseline-model:-Cold-Start-Problem">¶</a></h1>
+                        <p>The Cold Start problem refers to the issue where a system cannot draw any inferences
+                            for users or items about which it has not yet gathered sufficient information.</p>
+                        <p>In the context of our project, the issue concerns how we can create a model that is
+                            able to make sound song recommendations for new playlists with relatively few prior
+                            user inputs. This would involve the user essentially feeding in perhaps 3 or so
+                            songs that they like.</p>
+                        <p>In our case, we have designed our baseline model to take in a single song input in
+                            order to generate a playlist of recommended songs solely based on the inputted song.
+                            Note that when a user indicates that they like a song, we only focus on the set of
+                            playlists that the song is a part of. We can then generate recommendations using
+                            techniques like:</p>
                         <ul>
                             <li>Gaussian Mixture Models (GMM)</li>
                             <li>Nearest Neighbours (NN)</li>
                         </ul>
-                        <h3 id="Gaussian-Mixture-Models-(GMM)">Gaussian Mixture Models (GMM)<a class="anchor-link"
-                                                                                               href="#Gaussian-Mixture-Models-(GMM)"></a>
-                        </h3>
-                        <p>We can fit the data to the chosen number of clusters we expect. Then, when the user likes a
-                            song, we can infer the posterior <span class="MathJax_Preview"
-                                                                   style="color: inherit;"></span><span class="MathJax"
-                                                                                                        id="MathJax-Element-1-Frame"
-                                                                                                        tabindex="0"
-                                                                                                        data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>p</mi><mo stretchy=&quot;false&quot;>(</mo><msub><mi>z</mi><mi>n</mi></msub><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo stretchy=&quot;false&quot;>|</mo></mrow><msub><mi>x</mi><mi>n</mi></msub><mo stretchy=&quot;false&quot;>)</mo></math>"
-                                                                                                        role="presentation"
-                                                                                                        style="position: relative;"><nobr
-                                    aria-hidden="true"><span class="math" id="MathJax-Span-1"
-                                                             style="width: 4.11em; display: inline-block;"><span
-                                    style="display: inline-block; position: relative; width: 3.396em; height: 0px; font-size: 120%;"><span
-                                    style="position: absolute; clip: rect(1.67em, 1003.34em, 2.92em, -999.997em); top: -2.557em; left: 0em;"><span
-                                    class="mrow" id="MathJax-Span-2"><span class="mi" id="MathJax-Span-3"
-                                                                           style="font-family: STIXGeneral-Italic;">𝑝</span><span
-                                    class="mo" id="MathJax-Span-4"
-                                    style="font-family: STIXGeneral-Regular;">(</span><span class="msubsup"
-                                                                                            id="MathJax-Span-5"><span
+                        <h3 id="Gaussian-Mixture-Models-(GMM)">Gaussian Mixture Models (GMM)<a
+                                class="anchor-link" href="#Gaussian-Mixture-Models-(GMM)">¶</a></h3>
+                        <p>Based on the clustering we observed in the EDA, we could think of each song's feature
+                            coming from the following generative process:</p>
+                        <p>Each song <span class="MathJax_Preview" style="color: inherit;"></span><span
+                                class="MathJax" id="MathJax-Element-1-Frame" tabindex="0"
+                                style="position: relative;"
+                                data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>n</mi></math>"
+                                role="presentation"><nobr aria-hidden="true"><span class="math"
+                                                                                   id="MathJax-Span-1"
+                                                                                   style="width: 0.598em; display: inline-block;"><span
+                                style="display: inline-block; position: relative; width: 0.479em; height: 0px; font-size: 120%;"><span
+                                style="position: absolute; clip: rect(1.967em, 1000.42em, 2.741em, -999.997em); top: -2.557em; left: 0em;"><span
+                                class="mrow" id="MathJax-Span-2"><span class="mi" id="MathJax-Span-3"
+                                                                       style="font-family: STIXGeneral-Italic;">𝑛</span></span><span
+                                style="display: inline-block; width: 0px; height: 2.562em;"></span></span></span><span
+                                style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.718em;"></span></span></nobr><span
+                                class="MJX_Assistive_MathML" role="presentation"><math
+                                xmlns="http://www.w3.org/1998/Math/MathML"><mi>n</mi></math></span></span>
+                            <script type="math/tex" id="MathJax-Element-1">n</script>
+                            has a latent state <span class="MathJax_Preview"
+                                                     style="color: inherit;"></span><span class="MathJax"
+                                                                                          id="MathJax-Element-2-Frame"
+                                                                                          tabindex="0"
+                                                                                          style="position: relative;"
+                                                                                          data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><msub><mi>z</mi><mi>n</mi></msub></math>"
+                                                                                          role="presentation"><nobr
+                                    aria-hidden="true"><span class="math" id="MathJax-Span-4"
+                                                             style="width: 1.193em; display: inline-block;"><span
+                                    style="display: inline-block; position: relative; width: 0.955em; height: 0px; font-size: 120%;"><span
+                                    style="position: absolute; clip: rect(1.551em, 1000.96em, 2.562em, -999.997em); top: -2.199em; left: 0em;"><span
+                                    class="mrow" id="MathJax-Span-5"><span class="msubsup"
+                                                                           id="MathJax-Span-6"><span
                                     style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span
                                     style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span
-                                    class="mi" id="MathJax-Span-6"
+                                    class="mi" id="MathJax-Span-7"
                                     style="font-family: STIXGeneral-Italic;">𝑧</span><span
                                     style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span
                                     style="position: absolute; top: -3.807em; left: 0.479em;"><span class="mi"
-                                                                                                    id="MathJax-Span-7"
+                                                                                                    id="MathJax-Span-8"
+                                                                                                    style="font-size: 70.7%; font-family: STIXGeneral-Italic;">𝑛</span><span
+                                    style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span></span><span
+                                    style="display: inline-block; width: 0px; height: 2.205em;"></span></span></span><span
+                                    style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 0.861em;"></span></span></nobr><span
+                                    class="MJX_Assistive_MathML" role="presentation"><math
+                                    xmlns="http://www.w3.org/1998/Math/MathML"><msub></msub></math></span></span>
+                            <script type="math/tex" id="MathJax-Element-2">z_n</script>
+                            , corresponding to the cluster it belongs to (think of song genres for intuition).
+                            Since we saw that the projected clusters had roughly elliptical shapes, we might
+                            expect each to be a multi-dimensional Gaussian. Hence, assume that the features are
+                            drawn as
+                        </p>
+                        <img src="img/gnn.png"/>
+                        <p>We first fit the data to the chosen number of clusters we expect. Then, when the user
+                            likes a song <span class="MathJax_Preview" style="color: inherit;"></span><span
+                                    class="MathJax" id="MathJax-Element-4-Frame" tabindex="0"
+                                    data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>n</mi></math>"
+                                    role="presentation" style="position: relative;"><nobr
+                                    aria-hidden="true"><span class="math" id="MathJax-Span-45"
+                                                             style="width: 0.598em; display: inline-block;"><span
+                                    style="display: inline-block; position: relative; width: 0.479em; height: 0px; font-size: 120%;"><span
+                                    style="position: absolute; clip: rect(1.967em, 1000.42em, 2.741em, -999.997em); top: -2.557em; left: 0em;"><span
+                                    class="mrow" id="MathJax-Span-46"><span class="mi" id="MathJax-Span-47"
+                                                                            style="font-family: STIXGeneral-Italic;">𝑛</span></span><span
+                                    style="display: inline-block; width: 0px; height: 2.562em;"></span></span></span><span
+                                    style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.718em;"></span></span></nobr><span
+                                    class="MJX_Assistive_MathML" role="presentation"><math
+                                    xmlns="http://www.w3.org/1998/Math/MathML"><mi></mi></math></span></span>
+                            <script type="math/tex" id="MathJax-Element-4">n</script>
+                            , we can infer the posterior latent state <span class="MathJax_Preview"
+                                                                            style="color: inherit;"></span><span
+                                    class="MathJax" id="MathJax-Element-5-Frame" tabindex="0"
+                                    data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>p</mi><mo stretchy=&quot;false&quot;>(</mo><msub><mi>z</mi><mi>n</mi></msub><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo stretchy=&quot;false&quot;>|</mo></mrow><msub><mi>x</mi><mi>n</mi></msub><mo stretchy=&quot;false&quot;>)</mo></math>"
+                                    role="presentation" style="position: relative;"><nobr
+                                    aria-hidden="true"><span class="math" id="MathJax-Span-48"
+                                                             style="width: 4.11em; display: inline-block;"><span
+                                    style="display: inline-block; position: relative; width: 3.396em; height: 0px; font-size: 120%;"><span
+                                    style="position: absolute; clip: rect(1.67em, 1003.34em, 2.92em, -999.997em); top: -2.557em; left: 0em;"><span
+                                    class="mrow" id="MathJax-Span-49"><span class="mi" id="MathJax-Span-50"
+                                                                            style="font-family: STIXGeneral-Italic;">𝑝</span><span
+                                    class="mo" id="MathJax-Span-51"
+                                    style="font-family: STIXGeneral-Regular;">(</span><span class="msubsup"
+                                                                                            id="MathJax-Span-52"><span
+                                    style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span
+                                    style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span
+                                    class="mi" id="MathJax-Span-53"
+                                    style="font-family: STIXGeneral-Italic;">𝑧</span><span
+                                    style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span
+                                    style="position: absolute; top: -3.807em; left: 0.479em;"><span class="mi"
+                                                                                                    id="MathJax-Span-54"
                                                                                                     style="font-size: 70.7%; font-family: STIXGeneral-Italic;">𝑛</span><span
                                     style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span
-                                    class="texatom" id="MathJax-Span-8"><span class="mrow" id="MathJax-Span-9"><span
-                                    class="mo" id="MathJax-Span-10"
-                                    style="font-family: STIXVariants;">|</span></span></span><span class="msubsup"
-                                                                                                   id="MathJax-Span-11"><span
+                                    class="texatom" id="MathJax-Span-55"><span class="mrow"
+                                                                               id="MathJax-Span-56"><span
+                                    class="mo" id="MathJax-Span-57"
+                                    style="font-family: STIXVariants;">|</span></span></span><span
+                                    class="msubsup" id="MathJax-Span-58"><span
                                     style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span
                                     style="position: absolute; clip: rect(3.396em, 1000.54em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span
-                                    class="mi" id="MathJax-Span-12"
+                                    class="mi" id="MathJax-Span-59"
                                     style="font-family: STIXGeneral-Italic;">𝑥</span><span
                                     style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span
                                     style="position: absolute; top: -3.807em; left: 0.539em;"><span class="mi"
-                                                                                                    id="MathJax-Span-13"
+                                                                                                    id="MathJax-Span-60"
                                                                                                     style="font-size: 70.7%; font-family: STIXGeneral-Italic;">𝑛</span><span
                                     style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span
-                                    class="mo" id="MathJax-Span-14"
+                                    class="mo" id="MathJax-Span-61"
                                     style="font-family: STIXGeneral-Regular;">)</span></span><span
                                     style="display: inline-block; width: 0px; height: 2.562em;"></span></span></span><span
                                     style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 1.218em;"></span></span></nobr><span
                                     class="MJX_Assistive_MathML" role="presentation"><math
-                                    xmlns="http://www.w3.org/1998/Math/MathML"><mi>p</mi><mo stretchy="false">(</mo><msub><mi>z</mi><mi>n</mi></msub><mrow
-                                    class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><msub><mi>x</mi><mi>n</mi></msub><mo
-                                    stretchy="false">)</mo></math></span></span>
-                            <script type="math/tex" id="MathJax-Element-1">p(z_n|x_n)</script>
+                                    xmlns="http://www.w3.org/1998/Math/MathML"></mo></math></span></span>
+                            <script type="math/tex" id="MathJax-Element-5">p(z_n|x_n)</script>
                             to select the cluster that the song belongs to. We can then sample <span
                                     class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax"
-                                                                                                 id="MathJax-Element-2-Frame"
+                                                                                                 id="MathJax-Element-6-Frame"
                                                                                                  tabindex="0"
                                                                                                  data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>p</mi><mo stretchy=&quot;false&quot;>(</mo><msub><mi>x</mi><mi>n</mi></msub><mrow class=&quot;MJX-TeXAtom-ORD&quot;><mo stretchy=&quot;false&quot;>|</mo></mrow><msub><mi>z</mi><mi>n</mi></msub><mo stretchy=&quot;false&quot;>)</mo></math>"
                                                                                                  role="presentation"
                                                                                                  style="position: relative;"><nobr
-                                    aria-hidden="true"><span class="math" id="MathJax-Span-15"
+                                    aria-hidden="true"><span class="math" id="MathJax-Span-62"
                                                              style="width: 4.11em; display: inline-block;"><span
                                     style="display: inline-block; position: relative; width: 3.396em; height: 0px; font-size: 120%;"><span
                                     style="position: absolute; clip: rect(1.67em, 1003.34em, 2.92em, -999.997em); top: -2.557em; left: 0em;"><span
-                                    class="mrow" id="MathJax-Span-16"><span class="mi" id="MathJax-Span-17"
+                                    class="mrow" id="MathJax-Span-63"><span class="mi" id="MathJax-Span-64"
                                                                             style="font-family: STIXGeneral-Italic;">𝑝</span><span
-                                    class="mo" id="MathJax-Span-18"
+                                    class="mo" id="MathJax-Span-65"
                                     style="font-family: STIXGeneral-Regular;">(</span><span class="msubsup"
-                                                                                            id="MathJax-Span-19"><span
+                                                                                            id="MathJax-Span-66"><span
                                     style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span
                                     style="position: absolute; clip: rect(3.396em, 1000.54em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span
-                                    class="mi" id="MathJax-Span-20"
+                                    class="mi" id="MathJax-Span-67"
                                     style="font-family: STIXGeneral-Italic;">𝑥</span><span
                                     style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span
                                     style="position: absolute; top: -3.807em; left: 0.539em;"><span class="mi"
-                                                                                                    id="MathJax-Span-21"
+                                                                                                    id="MathJax-Span-68"
                                                                                                     style="font-size: 70.7%; font-family: STIXGeneral-Italic;">𝑛</span><span
                                     style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span
-                                    class="texatom" id="MathJax-Span-22"><span class="mrow" id="MathJax-Span-23"><span
-                                    class="mo" id="MathJax-Span-24"
-                                    style="font-family: STIXVariants;">|</span></span></span><span class="msubsup"
-                                                                                                   id="MathJax-Span-25"><span
+                                    class="texatom" id="MathJax-Span-69"><span class="mrow"
+                                                                               id="MathJax-Span-70"><span
+                                    class="mo" id="MathJax-Span-71"
+                                    style="font-family: STIXVariants;">|</span></span></span><span
+                                    class="msubsup" id="MathJax-Span-72"><span
                                     style="display: inline-block; position: relative; width: 0.955em; height: 0px;"><span
                                     style="position: absolute; clip: rect(3.336em, 1000.48em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span
-                                    class="mi" id="MathJax-Span-26"
+                                    class="mi" id="MathJax-Span-73"
                                     style="font-family: STIXGeneral-Italic;">𝑧</span><span
                                     style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span
                                     style="position: absolute; top: -3.807em; left: 0.479em;"><span class="mi"
-                                                                                                    id="MathJax-Span-27"
+                                                                                                    id="MathJax-Span-74"
                                                                                                     style="font-size: 70.7%; font-family: STIXGeneral-Italic;">𝑛</span><span
                                     style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span
-                                    class="mo" id="MathJax-Span-28"
+                                    class="mo" id="MathJax-Span-75"
                                     style="font-family: STIXGeneral-Regular;">)</span></span><span
                                     style="display: inline-block; width: 0px; height: 2.562em;"></span></span></span><span
                                     style="display: inline-block; overflow: hidden; vertical-align: -0.282em; border-left: 0px solid; width: 0px; height: 1.218em;"></span></span></nobr><span
                                     class="MJX_Assistive_MathML" role="presentation"><math
-                                    xmlns="http://www.w3.org/1998/Math/MathML"><mi>p</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mi>n</mi></msub><mrow
-                                    class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><msub><mi>z</mi><mi>n</mi></msub><mo
-                                    stretchy="false">)</mo></math></span></span>
-                            <script type="math/tex" id="MathJax-Element-2">p(x_n|z_n)</script>
-                            to generate a new song from that cluster. Since this sample from a multivariate Gaussian may
-                            not exactly correspond to a song, we can use our pre-trained NN to find the closest match.
-                            This method requires us to select the number of clusters we expect in the data. We can
-                            select this using a combination of the Silhouette score and Bayesian Information Criterion.
-                            We demonstrate these on a subset of the data below.
+                                    xmlns="http://www.w3.org/1998/Math/MathML"><mo
+                                    stretchy="false"></mo><msub></msub><mrow
+                                    class="MJX-TeXAtom-ORD"><mo stretchy="false"></mo></mrow><msub></msub><mo
+                                    stretchy="false"></mo></math></span></span>
+                            <script type="math/tex" id="MathJax-Element-6">p(x_n|z_n)</script>
+                            to generate a new song from that cluster. Since this sample from a multivariate
+                            Gaussian may not exactly correspond to a song, we can use our pre-fit Nearest
+                            Neighbour algorithm to find the closest match.
                         </p>
+                        <p>This method requires us to select the number of clusters we expect in the data. We
+                            can select this using a combination of the Silhouette score and Bayesian Information
+                            Criterion, which are scoring metrics commonly used to evaluate models. We
+                            demonstrate these on a subset of the data below.</p>
+                        <div class="text_cell_render border-box-sizing rendered_html">
+                            <p><em>Silhouette Score (SS)</em></p>
+                            <p>This checks how compact and well separated the clusters are. The closer the SS is
+                                to <span class="MathJax_Preview" style="color: inherit;"></span><span
+                                        class="MathJax" id="MathJax-Element-7-Frame" tabindex="0"
+                                        data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mn>1</mn></math>"
+                                        role="presentation" style="position: relative;"><nobr
+                                        aria-hidden="true"><span class="math" id="MathJax-Span-76"
+                                                                 style="width: 0.598em; display: inline-block;"><span
+                                        style="display: inline-block; position: relative; width: 0.479em; height: 0px; font-size: 120%;"><span
+                                        style="position: absolute; clip: rect(1.729em, 1000.36em, 2.741em, -999.997em); top: -2.557em; left: 0em;"><span
+                                        class="mrow" id="MathJax-Span-77"><span class="mn" id="MathJax-Span-78"
+                                                                                style="font-family: STIXGeneral-Regular;">1</span></span><span
+                                        style="display: inline-block; width: 0px; height: 2.562em;"></span></span></span><span
+                                        style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.932em;"></span></span></nobr><span
+                                        class="MJX_Assistive_MathML" role="presentation"><math
+                                        xmlns="http://www.w3.org/1998/Math/MathML"><mn></mn></math></span></span>
+                                <script type="math/tex" id="MathJax-Element-7">1</script>
+                                , the better the clustering is.
+                            </p>
 
-                    </div>
-                    <div class="text_cell_render rendered_html" tabindex="-1"><h3 id="Nearest-Neighbours-(NN)">Nearest
-                        Neighbours (NN)<a class="anchor-link" href="#Nearest-Neighbours-(NN)"></a></h3>
-                        <p>We can simply run unsupervised NN on the data and recommend the <span class="MathJax_Preview"
-                                                                                                 style="color: inherit;"></span><span
-                                class="MathJax" id="MathJax-Element-7-Frame" tabindex="0"
-                                data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>k</mi></math>"
-                                role="presentation" style="position: relative;"><nobr aria-hidden="true"><span
-                                class="math" id="MathJax-Span-59" style="width: 0.658em; display: inline-block;"><span
-                                style="display: inline-block; position: relative; width: 0.539em; height: 0px; font-size: 120%;"><span
-                                style="position: absolute; clip: rect(1.491em, 1000.54em, 2.503em, -999.997em); top: -2.318em; left: 0em;"><span
-                                class="mrow" id="MathJax-Span-60"><span class="mi" id="MathJax-Span-61"
-                                                                        style="font-family: STIXMathJax_Normal-italic;">𝑘</span></span><span
-                                style="display: inline-block; width: 0px; height: 2.324em;"></span></span></span><span
-                                style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.932em;"></span></span></nobr><span
-                                class="MJX_Assistive_MathML" role="presentation"><math
-                                xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi></math></span></span>
-                            <script type="math/tex" id="MathJax-Element-7">k</script>
-                            closest songs corresponding to the song that the user likes.
-                        </p>
-                        <p>Note that we would expect NN to generate recommendations closer to the song input, since it
-                            is literally picking songs with features that are closest to the input, whereas GMM would
-                            recommend songs in the same cluster but potentially far away from the input. Our system
-                            could use both techniques together, with NN suggesting relevant similar songs and GMM
-                            suggesting relevant 'exploratory' songs for the user to better explore that cluster and
-                            discover relevant albeit different music.</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 text-left">
-                            <div>
-                                <p>We’ve addressed the cold start in our “reccomend_coldstart” function, which can be
-                                    viewed in
-                                    further
-                                    detail in our notebook. This function takes in the spotifyId of a song and the
-                                    relevant data and
-                                    returns indices corresponding to playlists in the dataset that contain the query,
-                                    recommendations
-                                    song from our GNN model, and recommendations from our Neural Net model.
 
-                                    Consider the results on a sample song (“Plain Jane by A$AP Ferg -- id 11997 in our
-                                    DB)
-                                </p>
-
-                                <p><b>Emperically, the results out or NN model are more varied and, overall, better than
-                                    the GNN
-                                    model.</b></p>
-                            </div>
                         </div>
-                        <div>
-                            <h4>Automatic Playlist Generation</h4>
-                            <div class="cell border-box-sizing text_cell rendered">
-                                <div class="prompt input_prompt">
-                                </div>
-                                <div class="inner_cell">
-                                    <div class="text_cell_render border-box-sizing rendered_html">
-
-                                        <p>This corresponds to creating a model for song discovery on the basis of the
-                                            base
-                                            playlists and user-specified context information. The current system is able
-                                            to take
-                                            in the moods of</p>
-                                        <ul>
-                                            <li>Sleep</li>
-                                            <li>Party</li>
-                                            <li>Angry</li>
-                                            <li>Sad</li>
-                                        </ul>
-                                        <p>We have two methods to tackle this:</p>
-                                        <ul>
-                                            <li>Obtaining sample tracks corresponding to moods</li>
-                                            <li>Using a neural network to learn the mapping from song features to
-                                                moods
-                                            </li>
-                                        </ul>
-                                        <p><strong>Sample Tracks</strong></p>
-                                        <p>This works by first accessing additional playlists that we have scraped
-                                            corresponding
-                                            to these moods. Random songs are then sampled from these playlists (which
-                                            correspond
-                                            to the relevant moods) and fed through our models from the previous section,
-                                            generating relevant recommendations that cater to the required mood.</p>
-
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="output_png output_subarea ">
+                            <img src="data:image/png;base64,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
+">
                         </div>
 
+                        <div class="text_cell_render border-box-sizing rendered_html">
+                            <p><em>Bayesian Information Criterion (BIC)</em></p>
+                            <p>This checks how well the GMM fits to the data, with a penalty for model
+                                complexity. The lower the BIC, the better the fit.</p>
+
+                        </div>
+
+
+                        <div class="output_png output_subarea ">
+                            <img src="data:image/png;base64,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
+">
+                        </div>
+                        <p>We see that SS selects clusters=2 whereas BIC selects clusters=6 . We make our final
+                            decision based on the integer mean of the two results, e.g. 4 .</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="text_cell_render border-box-sizing rendered_html">
+                <h3 id="Nearest-Neighbours-(NN)">Nearest Neighbours (NN)<a class="anchor-link"
+                                                                           href="#Nearest-Neighbours-(NN)">¶</a></h3>
+                <p>We can simply run unsupervised NN on the data and recommend the <span class="MathJax_Preview"
+                                                                                         style="color: inherit;"></span><span
+                        class="MathJax" id="MathJax-Element-11-Frame" tabindex="0"
+                        data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>k</mi></math>"
+                        role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math"
+                                                                                                       id="MathJax-Span-106"
+                                                                                                       style="width: 0.658em; display: inline-block;"><span
+                        style="display: inline-block; position: relative; width: 0.539em; height: 0px; font-size: 120%;"><span
+                        style="position: absolute; clip: rect(1.729em, 1000.54em, 2.741em, -999.997em); top: -2.557em; left: 0em;"><span
+                        class="mrow" id="MathJax-Span-107"><span class="mi" id="MathJax-Span-108"
+                                                                 style="font-family: STIXGeneral-Italic;">𝑘</span></span><span
+                        style="display: inline-block; width: 0px; height: 2.562em;"></span></span></span><span
+                        style="display: inline-block; overflow: hidden; vertical-align: -0.068em; border-left: 0px solid; width: 0px; height: 0.932em;"></span></span></nobr><span
+                        class="MJX_Assistive_MathML" role="presentation"><math
+                        xmlns="http://www.w3.org/1998/Math/MathML"><mi></mi></math></span></span>
+                    <script type="math/tex" id="MathJax-Element-11">k</script>
+                    closest songs corresponding to the song that the user likes, with the hopes that similarity in
+                    feature space would result in good song recommendations.
+                </p>
+
+            </div>
+            <div class="text_cell_render border-box-sizing rendered_html">
+                <h3 id="Comparison-between-the-methods">Comparison between the methods<a class="anchor-link"
+                                                                                         href="#Comparison-between-the-methods">¶</a>
+                </h3>
+                <p>Note that we would expect NN to generate recommendations closer to the song input, since it is
+                    literally picking songs with features that are closest to the input, whereas GMM would recommend
+                    songs in the same cluster but potentially far away from the input. Our system could use both
+                    techniques together, with NN suggesting relevant similar songs and GMM suggesting relevant
+                    'exploratory' songs for the user to better explore that cluster and discover relevant albeit
+                    different music.</p>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 text-left">
+                    <div>
                         <p>
+
+                            Consider the results on a sample song (“Plain Jane by A$AP Ferg -- id 11997 in our
+                            DB)
                         </p>
+                        <div class="inner_cell">
+                            <div class="input_area">
+                                <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># A$AP Ferg's Plain Jane</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">11997</span><span
+                                            class="p">]]</span>
+
+<span class="c1"># Fit the model and generate recommendations</span>
+<span class="n">nn_recc_songs</span><span class="p">,</span> <span class="n">gmm_recc_songs</span> <span
+                                            class="o">=</span> <span class="n">recommend_coldstart</span><span
+                                            class="p">(</span><span class="mi">11997</span><span
+                                            class="p">,</span> <span class="n">X_train</span><span
+                                            class="p">,</span> <span class="n">df</span><span class="p">,</span> <span
+                                            class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span
+                                            class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="text_cell_render border-box-sizing rendered_html">
+                            <p>Inspecting the recommendations from both methods below, we see that this is in general, a
+                                good baseline model.</p>
+
+                        </div>
+                        <div class="inner_cell">
+                            <div class="input_area">
+                                <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># GMM Recommendations</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"GMM Recomendations"</span><span
+                                            class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">gmm_recc_songs</span><span
+                                            class="p">[[</span><span class="s1">'track_name'</span><span
+                                            class="p">,</span> <span class="s1">'artist_name'</span><span
+                                            class="p">]])</span>
+
+<span class="c1"># NN Recomendations</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span
+                                            class="s2">NN Recomendations"</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">nn_recc_songs</span><span class="p">[[</span><span
+                                            class="s1">'track_name'</span><span class="p">,</span> <span class="s1">'artist_name'</span><span
+                                            class="p">]])</span>
+</pre>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="output_subarea output_stream output_stdout output_text">
+<pre>GMM Recomendations
+</pre>
+                        </div>
+                        <div class="output_html rendered_html output_subarea ">
+                            <div>
+                                <style scoped="">
+                                    .dataframe tbody tr th:only-of-type {
+                                        vertical-align: middle;
+                                    }
+
+                                    .dataframe tbody tr th {
+                                        vertical-align: top;
+                                    }
+
+                                    .dataframe thead th {
+                                        text-align: right;
+                                    }
+                                </style>
+                                <table border="1" class="dataframe">
+                                    <thead>
+                                    <tr style="text-align: right;">
+                                        <th></th>
+                                        <th>track_name</th>
+                                        <th>artist_name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>49875</th>
+                                        <td>Best Friend</td>
+                                        <td>Young Thug</td>
+                                    </tr>
+                                    <tr>
+                                        <th>11940</th>
+                                        <td>New Level</td>
+                                        <td>A$AP Ferg</td>
+                                    </tr>
+                                    <tr>
+                                        <th>19261</th>
+                                        <td>Portland</td>
+                                        <td>Drake</td>
+                                    </tr>
+                                    <tr>
+                                        <th>19264</th>
+                                        <td>Up</td>
+                                        <td>Desiigner</td>
+                                    </tr>
+                                    <tr>
+                                        <th>11946</th>
+                                        <td>Fake Love</td>
+                                        <td>Drake</td>
+                                    </tr>
+                                    <tr>
+                                        <th>9457</th>
+                                        <td>Peek A Boo</td>
+                                        <td>Lil Yachty</td>
+                                    </tr>
+                                    <tr>
+                                        <th>9515</th>
+                                        <td>Gamble</td>
+                                        <td>Rich Homie Quan</td>
+                                    </tr>
+                                    <tr>
+                                        <th>19337</th>
+                                        <td>No Flag</td>
+                                        <td>London On Da Track</td>
+                                    </tr>
+                                    <tr>
+                                        <th>11957</th>
+                                        <td>Work REMIX</td>
+                                        <td>A$AP Ferg</td>
+                                    </tr>
+                                    <tr>
+                                        <th>9530</th>
+                                        <td>Magnolia</td>
+                                        <td>Playboi Carti</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="output_subarea output_stream output_stdout output_text">
+<pre>NN Recomendations
+</pre>
+                        </div>
+                        <div class="output_html rendered_html output_subarea ">
+                            <div>
+                                <style scoped="">
+                                    .dataframe tbody tr th:only-of-type {
+                                        vertical-align: middle;
+                                    }
+
+                                    .dataframe tbody tr th {
+                                        vertical-align: top;
+                                    }
+
+                                    .dataframe thead th {
+                                        text-align: right;
+                                    }
+                                </style>
+                                <table border="1" class="dataframe">
+                                    <thead>
+                                    <tr style="text-align: right;">
+                                        <th></th>
+                                        <th>track_name</th>
+                                        <th>artist_name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>9471</th>
+                                        <td>XO TOUR Llif3</td>
+                                        <td>Lil Uzi Vert</td>
+                                    </tr>
+                                    <tr>
+                                        <th>19277</th>
+                                        <td>Patty Cake</td>
+                                        <td>Kodak Black</td>
+                                    </tr>
+                                    <tr>
+                                        <th>19348</th>
+                                        <td>Undefeated (feat. 21 Savage)</td>
+                                        <td>A Boogie Wit da Hoodie</td>
+                                    </tr>
+                                    <tr>
+                                        <th>11974</th>
+                                        <td>Seven Million (feat. Future)</td>
+                                        <td>Lil Uzi Vert</td>
+                                    </tr>
+                                    <tr>
+                                        <th>49866</th>
+                                        <td>Yamborghini High</td>
+                                        <td>A$AP Mob</td>
+                                    </tr>
+                                    <tr>
+                                        <th>19252</th>
+                                        <td>Icy Lil Bitch</td>
+                                        <td>Gucci Mane</td>
+                                    </tr>
+                                    <tr>
+                                        <th>19258</th>
+                                        <td>Dance (A$$)</td>
+                                        <td>Big Sean</td>
+                                    </tr>
+                                    <tr>
+                                        <th>49891</th>
+                                        <td>What Do You Do</td>
+                                        <td>A$AP Ferg</td>
+                                    </tr>
+                                    <tr>
+                                        <th>9440</th>
+                                        <td>Look At Me Now</td>
+                                        <td>Chris Brown</td>
+                                    </tr>
+                                    <tr>
+                                        <th>19200</th>
+                                        <td>Starboy</td>
+                                        <td>The Weeknd</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="inner_cell">
+                            <div class="text_cell_render border-box-sizing rendered_html">
+                                <h1 id="Extended-Model:-Automatic-Playlist-Generation">Extended Model: Automatic
+                                    Playlist Generation<a class="anchor-link"
+                                                          href="#Extended-Model:-Automatic-Playlist-Generation">¶</a>
+                                </h1>
+                                <p>This corresponds to the task of creating a model for song discovery on the basis of
+                                    the base playlists and user-specified context information. We set out to develop a
+                                    system that is able to take in one of our four specified moods/intents:</p>
+                                <ul>
+                                    <li>Sleep</li>
+                                    <li>Party</li>
+                                    <li>Angry</li>
+                                    <li>Sad</li>
+                                </ul>
+                                <p>and generate song recommendations based purely off the user's choice. This approach
+                                    does not require user song input and will utilize our curated playlists along with a
+                                    system of mood/intent mapping.</p>
+                                <p>We implemented two methods to tackle this issue:</p>
+                                <ol>
+                                    <li>Obtaining sample tracks that correspond to moods</li>
+                                    <li>Using a neural network to learn the mapping from song features to moods</li>
+                                </ol>
+                                <h3 id="1.-Sample-Tracks">1. Sample Tracks<a class="anchor-link"
+                                                                             href="#1.-Sample-Tracks">¶</a></h3>
+                                <p>This works by first accessing additional curated playlists that we have scraped
+                                    corresponding to these moods. Random songs are then sampled from these playlists
+                                    (which correspond to the relevant moods) and fed through our models from the
+                                    previous section. This draws on the strength of the good recommendations that our
+                                    model was making, but now using input songs that we know correspond to the user
+                                    mood. This would generate relevant recommendations that also cater to the required
+                                    mood.</p>
+
+                            </div>
+                        </div>
+                        <div class="inner_cell">
+                            <div class="text_cell_render border-box-sizing rendered_html">
+                                <h3 id="2.-Neural-Network">2. Neural Network<a class="anchor-link"
+                                                                               href="#2.-Neural-Network">¶</a></h3>
+                                <p>This approach relies on the intuition that a different combination of the features
+                                    should map to the relevant moods that we require, and learning these mapping would
+                                    allow us to classify our recommendations into moods. We could opt to perform some
+                                    feature engineering ourselves and generate these maps, however this requires strong
+                                    domain expertise. We hence use a neural network to learn these mappings. This works
+                                    by first accessing additional curated playlists that we have scraped corresponding
+                                    to these moods. A neural network is then trained to use the previously obtained song
+                                    features to classify all songs into one of the four moods. Since there are only 9
+                                    numerical features, and we expect the mapping to not be too complex, a relatively
+                                    simple architecture with two hidden layers and dropouts is used. This trained
+                                    network will then be applied to the recommended songs from the previous section, and
+                                    only songs catering to the required mood will be recommended.</p>
+                                <p>
+                                    Note that a potential issue is that the classes are not equally represented in our
+                                    dataset. This is because the provided Million Playlist Dataset does not contain
+                                    newer
+                                    songs, and we had difficulties in finding relevant existing playlists corresponding
+                                    to
+                                    the 'angry' and 'sleep' moods that had older songs. There might essentially have
+                                    been
+                                    some change in the 'data distribution' over years, and we did not want this to
+                                    affect
+                                    our learning. This issue could be resolved with an updated Million Playlist Dataset.
+                                </p>
+                            </div>
+                            <div class="inner_cell">
+                                <div class="text_cell_render border-box-sizing rendered_html">
+                                    <p>We now try this approach out on a random mood.</p>
+
+                                </div>
+                            </div>
+                            <div class="inner_cell">
+                                <div class="input_area">
+                                    <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample_recc_songs</span><span
+                                            class="p">,</span> <span class="n">nn_recc_songs</span> <span
+                                            class="o">=</span> <span class="n">recommend_mood</span><span
+                                            class="p">(</span><span class="s1">'angry'</span><span
+                                            class="p">,</span> <span class="n">model</span><span
+                                            class="p">,</span> <span class="n">X_train</span><span
+                                            class="p">,</span> <span class="n">df</span><span class="p">,</span> <span
+                                            class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span
+                                            class="p">)</span>
+</pre>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="inner_cell">
+                                <div class="text_cell_render border-box-sizing rendered_html">
+                                    <p>Inspecting the recommendations from both methods below, we see that this is in
+                                        general, a good model.</p>
+
+                                </div>
+                            </div>
+                            <div class="inner_cell">
+                                <div class="text_cell_render border-box-sizing rendered_html">
+                                    <p>Inspecting the recommendations from both methods below, we see that this is in
+                                        general, a good model.</p>
+
+                                </div>
+                            </div>
+
+                            <div class="inner_cell">
+                                <div class="input_area">
+                                    <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Sample method</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Sample-based method"</span><span
+                                                class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">sample_recc_songs</span><span
+                                                class="p">[[</span><span class="s1">'track_name'</span><span
+                                                class="p">,</span> <span class="s1">'artist_name'</span><span class="p">]])</span>
+
+<span class="c1"># NN Recomendations</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span
+                                                class="s2">Neural network-based Recomendations"</span><span
+                                                class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">nn_recc_songs</span><span class="p">[[</span><span
+                                                class="s1">'track_name'</span><span class="p">,</span> <span class="s1">'artist_name'</span><span
+                                                class="p">]])</span>
+</pre>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="output_html rendered_html output_subarea output_execute_result">
+                                <div>
+                                    <style scoped="">
+                                        .dataframe tbody tr th:only-of-type {
+                                            vertical-align: middle;
+                                        }
+
+                                        .dataframe tbody tr th {
+                                            vertical-align: top;
+                                        }
+
+                                        .dataframe thead th {
+                                            text-align: right;
+                                        }
+                                    </style>
+                                    <table border="1" class="dataframe">
+                                        <thead>
+                                        <tr style="text-align: right;">
+                                            <th></th>
+                                            <th>track_name</th>
+                                            <th>artist_name</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>1447</th>
+                                            <td>When You Walk Into The Room</td>
+                                            <td>Bryan &amp; Katie Torwalt</td>
+                                        </tr>
+                                        <tr>
+                                            <th>7675</th>
+                                            <td>In Charlotte</td>
+                                            <td>Young Dolph</td>
+                                        </tr>
+                                        <tr>
+                                            <th>6353</th>
+                                            <td>Get Free</td>
+                                            <td>The Vines</td>
+                                        </tr>
+                                        <tr>
+                                            <th>59783</th>
+                                            <td>All Weekend Long</td>
+                                            <td>The Lacs</td>
+                                        </tr>
+                                        <tr>
+                                            <th>27540</th>
+                                            <td>Time For That</td>
+                                            <td>Kevin Gates</td>
+                                        </tr>
+                                        <tr>
+                                            <th>5314</th>
+                                            <td>Hey Girl</td>
+                                            <td>Billy Currington</td>
+                                        </tr>
+                                        <tr>
+                                            <th>13776</th>
+                                            <td>Play</td>
+                                            <td>David Banner</td>
+                                        </tr>
+                                        <tr>
+                                            <th>59359</th>
+                                            <td>California I Follow</td>
+                                            <td>Corsica Arts Club</td>
+                                        </tr>
+                                        <tr>
+                                            <th>42735</th>
+                                            <td>Re-Do</td>
+                                            <td>Modern Baseball</td>
+                                        </tr>
+                                        <tr>
+                                            <th>11665</th>
+                                            <td>Pop, Lock, And Drop It</td>
+                                            <td>Swishahouse</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div>
+                    <h4>Automatic Playlist Generation</h4>
+                    <div class="cell border-box-sizing text_cell rendered">
+                        <div class="prompt input_prompt">
+                        </div>
+                        <div class="inner_cell">
+                            <div class="text_cell_render border-box-sizing rendered_html">
+
+                                <p>This corresponds to creating a model for song discovery on the basis of the
+                                    base
+                                    playlists and user-specified context information. The current system is able
+                                    to take
+                                    in the moods of</p>
+                                <ul>
+                                    <li>Sleep</li>
+                                    <li>Party</li>
+                                    <li>Angry</li>
+                                    <li>Sad</li>
+                                </ul>
+                                <p>We have two methods to tackle this:</p>
+                                <ul>
+                                    <li>Obtaining sample tracks corresponding to moods</li>
+                                    <li>Using a neural network to learn the mapping from song features to
+                                        moods
+                                    </li>
+                                </ul>
+                                <p><strong>Sample Tracks</strong></p>
+                                <p>This works by first accessing additional playlists that we have scraped
+                                    corresponding
+                                    to these moods. Random songs are then sampled from these playlists (which
+                                    correspond
+                                    to the relevant moods) and fed through our models from the previous section,
+                                    generating relevant recommendations that cater to the required mood.</p>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <p>
+                </p>
             </div>
         </div>
-        <div class="row">
-        </div>
+
+    </div>
+
+    <div class="row">
     </div>
 </section>
 
 <section class="bg-light page-section" id="demos">
     <div class="container">
         <h2 class="section-heading text-uppercase">Demos</h2>
-        <p>The following videos contain demonstrations of our existing recommender systems; they illustrate both our models
+        <p>The following videos contain demonstrations of our existing recommender systems; they illustrate both our
+            models
             taking in some form of user input and generating playlists accessible within Spotify.</p>
         <br>
         <div class="row">
@@ -633,10 +1189,12 @@
             <br>
             <p>
                 Cold Start Demo illustrates our system’s response to the Cold Start problem; it takes in a track title
-                (in this case, Versace by the Migos) and generates a query in our database for a song that best matches the
+                (in this case, Versace by the Migos) and generates a query in our database for a song that best matches
+                the
                 inputted title. This query returns a track ID that is fed into both our Gaussian Mixture Model and our
                 Nearest Neighbors Model in order to create two separate playlists in the user’s Spotify account. As
-                mentioned above, the Gaussian Mixture Model tends to generate more diverse and explorative recommendations
+                mentioned above, the Gaussian Mixture Model tends to generate more diverse and explorative
+                recommendations
                 given how it makes recommendations based on song clusters. Meanwhile, the Nearest Neighbors model tends
                 to make recommendations that are more similar to the inputted song. Our model generates two separate
                 playlists corresponding to each of the models.
@@ -863,6 +1421,7 @@
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 
 <!-- Plugin JavaScript -->
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
