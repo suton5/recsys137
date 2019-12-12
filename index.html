@@ -103,15 +103,13 @@
                 <h2 class="section-heading text-uppercase">Problem Statement and Motivation</h2>
                 <p>Based on the project goals set out by the AC209a instructors, we are to create a Spotify recommender
                     system that can achieve the following two competencies: (1) automatic playlist generation; (2)
-                    deal with the Cold Start problem.
-                </p>
-                <p>
-                    To this effect, our team has developed a product that utilizes data science models and approaches to
-                    create a
+                    deal with the Cold Start problem. To this effect, our team has developed a product that utilizes
+                    data science models and approaches to create a
                     system with the following functionalities: (1) the system is capable of taking in single-song
                     inputs and generating in-app playlists on Spotify; (2) the system can take in ‘intent’ and/or
                     ‘mood’ inputs and generate playlists corresponding to said intents without any song input.
                 </p>
+                 <br>
                 <p>
                     Our team believes that such a system would adequately address both project goals and create
                     the necessary foundation on which more sophisticated recommender systems can be built.
@@ -197,7 +195,8 @@
                     way of information about the tracks themselves beyond their membership in a particular playlist and
                     the artist and albums they belonged to.
                 </p>
-                Base data features:
+
+                <p>Base data features:</p>
                 <ul class="dual">
                     <li>Playlist ID</li>
                     <li>Position</li>
@@ -209,6 +208,7 @@
                     <li>Duration (ms)</li>
                     <li>Album name</li>
                 </ul>
+                <br>
                 <p>
                     We wrote a simple Python script that enabled us to extract additional features from Spotify’s API
                     by feeding in the unique track identification codes and requesting song features. For this, we
@@ -218,7 +218,7 @@
                     Million Playlist Dataset by including additional features we’ve extracted from the Spotify API.
                     This was then stored in a SQLite database for easy querying.
                 </p>
-                Augmented data features:
+                <p>Augmented data features:</p>
                 <ul class="dual">
                     <li>Danceability</li>
                     <li>Energy</li>
@@ -235,9 +235,11 @@
                     <li>Analysis URL</li>
                     <li>Time signature</li>
                 </ul>
-                Detailed explanation of these features are available on the <a
-                    href="https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-several-audio-features!">Spotify
-                developer page</a>.
+                <p>
+                    Detailed explanation of these features are available on the <a
+                        href="https://developer.spotify.com/documentation/web-api/reference-beta/#endpoint-get-several-audio-features!">
+                    Spotify developer page</a>.
+                </p>
                 <p>
                     For our second set of data, we relied on a separate Python script that scraped existing
                     user-generated
@@ -250,7 +252,7 @@
                     to 2018 (such that the songs from these playlists also feature on our Million Playlist dataset).
                     The playlists are stored in our data folder within our main repository.
                 </p>
-                Moods/Intents curated:
+                <p>Moods/Intents curated:</p>
                 <ul class="dual">
                     <li>Angry</li>
                     <li>Sad</li>
@@ -333,11 +335,9 @@
         <div class="row">
             <div class="col-lg-12 text-left">
                 <h2 class="section-heading text-uppercase">Literature Review & Related Work</h2>
-                All references are cited below in our <a class="js-scroll-trigger" href="#references">References</a>
-                section.
-
-                <br><br>
-
+                <p>All references are cited below in our <a class="js-scroll-trigger" href="#references">References</a>
+                    section.</p>
+                <br>
                 <span><b>Model</b></span>
 
                 <p>
@@ -365,15 +365,14 @@
 
 
                 </p>
-
-
+                <br>
                 <span><b>Scoring</b></span>
                 <p>
                     Our metric used to assess our model’s performance is guided by the concepts discussed in Maeleb’s
                     Medium article Recall and Precision at k for Recommender Systems. We considered a similar method
                     of evaluating our recommendation accuracy.
                 </p>
-
+                <br>
                 <span><b>Spotify API</b></span>
                 <p>
 
@@ -621,6 +620,9 @@
 <section class="bg-light page-section" id="demos">
     <div class="container">
         <h2 class="section-heading text-uppercase">Demos</h2>
+        <p>The following videos contain demonstrations of our existing recommender systems; they illustrate both our models
+            taking in some form of user input and generating playlists accessible within Spotify.</p>
+        <br>
         <div class="row">
             <div class="col">
                 <h4>Cold Start Demo</h4>
@@ -628,6 +630,18 @@
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
             </div>
+            <br>
+            <p>
+                Cold Start Demo illustrates our system’s response to the Cold Start problem; it takes in a track title
+                (in this case, Versace by the Migos) and generates a query in our database for a song that best matches the
+                inputted title. This query returns a track ID that is fed into both our Gaussian Mixture Model and our
+                Nearest Neighbors Model in order to create two separate playlists in the user’s Spotify account. As
+                mentioned above, the Gaussian Mixture Model tends to generate more diverse and explorative recommendations
+                given how it makes recommendations based on song clusters. Meanwhile, the Nearest Neighbors model tends
+                to make recommendations that are more similar to the inputted song. Our model generates two separate
+                playlists corresponding to each of the models.
+            </p>
+            <br>
         </div>
         <div class="row">
             <div class="col">
@@ -636,6 +650,20 @@
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
             </div>
+            <br>
+            <p>
+                The Emotion-Based Playlist Generation demo illustrates our system’s response to automatic playlist
+                generation using user intent/mood without any specific song input. The command-line interface lists
+                several options for the user to select and these options then inform the recommender system to
+                generate random song predictions that correspond to the selected option. As before, we implement
+                two separate models within this system. The first model involves the fitting of a neural net that
+                is trained on curated playlists corresponding to each mood/intent; the neural net assesses the audio
+                features for each mood/intent and uses this to generate random recommendations. The second model is
+                the sample-based approach where the model samples a random subset of tracks from the curated playlists
+                and searches for the nearest neighbours (in terms of audio features) in our dataset and returns them
+                as recommendations. Once again, we segregate the system’s recommendations into two separate playlists.
+
+            </p>
         </div>
     </div>
 </section>
@@ -652,6 +680,7 @@
                     recommendations were entirely based on song inputs and relating these inputs to other songs - in
                     these cases, the mapping of a song input to a recommendation was relatively clear given our model.
                 </P>
+
                 <p>
                     Following the third project milestone, we shifted our focus in order to deal with the other goal
                     concerning automatic playlist generation through user context and input beyond song inputs. Rather
@@ -665,12 +694,13 @@
                     systems. Although these implementations would have been great, given the constraints we faced,
                     pursuing those routes would have probably spread us too thin.
                 </p>
+                <br>
 
                 <span><b>Results</b></span>
                 <p>
                     TODO; WE NEED MORE FOR ANALYSIS AS WELL BASED ON OUR RESULTS
                 </p>
-
+                <br>
                 <span><b>Analysis and Evaluation</b></span>
                 <p>
                     Our team considers the project a broad success - we have met our goals of developing a functioning
@@ -729,6 +759,7 @@
                     to genres, moods, and intents and we can subsequently generate our mood/intent extensions based
                     on the most distinct, well-defined clusters.
                 </p>
+                <br>
                 <p>
                     We also hope to create a feedback system where users can either manually rate the quality of the
                     recommendations or we can somehow collect metadata concerning usage and evaluate recommendations

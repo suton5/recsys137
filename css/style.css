@@ -4,6 +4,14 @@
     -moz-columns: 2;
 }
 
+p, ul, h2, b{
+    font-size: 16px;
+}
+
+p{
+    text-align: justify;
+}
+
 .figure-img {
     display: block;
     margin: 0 auto;
