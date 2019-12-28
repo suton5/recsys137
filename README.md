@@ -1,4 +1,10 @@
 # RecSys137
+## Sujay Thakur, Jovin Leong, Simon Warchol
+
+Website : https://suton5.github.io/recsys137/
+
+Spotify recommendation system.
+
 
 1. Feature Extraction
 ```
